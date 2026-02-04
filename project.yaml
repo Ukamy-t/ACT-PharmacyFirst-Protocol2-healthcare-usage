@@ -8,7 +8,7 @@ actions:
         dataset: output/dataset.csv.gz
 
   analysis_objective_1:
-    run: python: analysis/Objective_1_analysis.py
+    run: python:v2 analysis/Objective_1_analysis.py
     needs: [generate_dataset]
     outputs:
       moderately_sensitive:

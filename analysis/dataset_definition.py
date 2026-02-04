@@ -2,7 +2,15 @@ from ehrql import create_dataset, show
 from ehrql.tables.tpp import (
     patients, 
     practice_registrations, 
-    clinical_events
+    clinical_events,
+    addresses,
+    ethnicity_from_sus
+)
+from dataset_functions import (
+    has_event,
+    get_age_band,
+    get_imd,
+    get_latest_ethnicity
 )
 import codelists
 
@@ -13,11 +21,11 @@ start_date = "2024-01-31"
 index_date = "2025-11-30"
 registration_start = practice_registrations.for_patient_on(start_date)
 registration_end = practice_registrations.for_patient_on(index_date)
+
 selected_events = clinical_events.where(
     clinical_events.date.is_on_or_between(start_date, index_date)
 )
 pf_consultation_events = selected_events.where(selected_events.snomedct_code.is_in(codelists.pf_consultation_events_dict["pf_consultation_services_combined"]))
-
 
 dataset.has_pf_consultation = pf_consultation_events.exists_for_patient()
     #add PF condition codes and check consultation ID matches- creates binary outcome for each condition
@@ -25,8 +33,19 @@ pf_ids = pf_consultation_events.consultation_id
 selected_pf_id_events = selected_events.where(
     selected_events.consultation_id.is_in(pf_ids)
 )
-def has_event(events, codelist):
-    return events.where(events.snomedct_code.is_in(codelist)).exists_for_patient()
+
+dataset.sex = patients.sex
+dataset.age = patients.age_on(index_date)
+dataset.age_band = get_age_band(patients, index_date)
+dataset.imd = get_imd(addresses, index_date)
+dataset.ethnicity = get_latest_ethnicity(
+    index_date,
+    clinical_events,
+    codelists.ethnicity_group16_codelist,
+    ethnicity_from_sus,
+    grouping=16,
+)
+
 dataset.uti_numerator = has_event(
     selected_pf_id_events,
     codelists.uti_code,
@@ -52,13 +71,8 @@ dataset.shingles_numerator = has_event(
     codelists.shingles_code,
 )
 
-
-
-
-dataset.sex = patients.sex
-dataset.age = patients.age_on(index_date)
 dataset.define_population(
     registration_start.exists_for_patient() | registration_end.exists_for_patient()) 
 
-    #add IMD, ethnicity, STP, region, practice id
+    #add STP, region, practice id
 show(dataset)

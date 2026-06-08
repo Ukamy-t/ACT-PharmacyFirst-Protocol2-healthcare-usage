@@ -86,93 +86,94 @@ for condition in conditions:
         ascending=False,
     )
 
-    all_summaries.append(summary)
+    output_file = f"output/snomed_count_summary_{condition}.csv"
+    summary.to_csv(output_file, index=False)
+    print(f"Saved: {output_file}")
+
+    # all_summaries.append(summary)
 
 
-final_summary = pd.concat(
-    all_summaries,
-    ignore_index=True,
-)
-
-output_file = "output/snomed_count_summary.csv"
-
-final_summary.to_csv(output_file, index=False)
-
-print(f"Saved: {output_file}")
+# final_summary = pd.concat(
+#     all_summaries,
+#     ignore_index=True,
+# )
+# output_file = "output/snomed_count_summary.csv"
+# final_summary.to_csv(output_file, index=False)
+# print(f"Saved: {output_file}")
 
 # -------------------------------------------------
 # Create plots for each condition
 # -------------------------------------------------
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 
-fig, axes = plt.subplots(
-    nrows=7,
-    ncols=1,
-    figsize=(40, 50),
-)
+# fig, axes = plt.subplots(
+#     nrows=7,
+#     ncols=1,
+#     figsize=(40, 50),
+# )
 
-axes = axes.flatten()
+# axes = axes.flatten()
 
-top_n = 10
-
-
-for i, condition in enumerate(conditions):
-
-    ax = axes[i]
-
-    condition_df = final_summary[
-        final_summary["condition"] == condition
-    ].copy()
-
-    plot_df = (
-        condition_df
-        .sort_values("consultation_count", ascending=False)
-        .head(top_n)
-    )
-
-    # use term if available, otherwise SNOMED code
-    plot_df["label"] = (
-        plot_df["snomed_code"].astype(str)
-        + "\n"
-        + plot_df["term"].fillna("")
-    )
-
-    bars = ax.barh(
-        plot_df["label"],
-        plot_df["consultation_count"],
-    )
-
-    # add count labels
-    for bar, count in zip(bars, plot_df["consultation_count"]):
-
-        ax.text(
-            bar.get_width(),                 # x position
-            bar.get_y() + bar.get_height()/2,  # y position
-            f"{int(count):,}",              # formatted count
-            va="center",
-            ha="left",
-            fontsize=15,
-        )
-
-    ax.invert_yaxis()
-
-    ax.set_title(condition)
-
-    ax.set_xlabel("Consultation count")
-
-    ax.set_ylabel("SNOMED code / term")
+# top_n = 10
 
 
-# # Remove unused final subplot
-# fig.delaxes(axes[-1])
+# for i, condition in enumerate(conditions):
 
-plt.tight_layout()
+#     ax = axes[i]
 
-plot_file = "output/snomed_count_top10_all_conditions.png"
+#     condition_df = final_summary[
+#         final_summary["condition"] == condition
+#     ].copy()
 
-plt.savefig(plot_file, dpi=300)
+#     plot_df = (
+#         condition_df
+#         .sort_values("consultation_count", ascending=False)
+#         .head(top_n)
+#     )
 
-plt.close()
+#     # use term if available, otherwise SNOMED code
+#     plot_df["label"] = (
+#         plot_df["snomed_code"].astype(str)
+#         + "\n"
+#         + plot_df["term"].fillna("")
+#     )
 
-print(f"Saved plot: {plot_file}")
+#     bars = ax.barh(
+#         plot_df["label"],
+#         plot_df["consultation_count"],
+#     )
+
+#     # add count labels
+#     for bar, count in zip(bars, plot_df["consultation_count"]):
+
+#         ax.text(
+#             bar.get_width(),                 # x position
+#             bar.get_y() + bar.get_height()/2,  # y position
+#             f"{int(count):,}",              # formatted count
+#             va="center",
+#             ha="left",
+#             fontsize=15,
+#         )
+
+#     ax.invert_yaxis()
+
+#     ax.set_title(condition)
+
+#     ax.set_xlabel("Consultation count")
+
+#     ax.set_ylabel("SNOMED code / term")
+
+
+# # # Remove unused final subplot
+# # fig.delaxes(axes[-1])
+
+# plt.tight_layout()
+
+# plot_file = "output/snomed_count_top10_all_conditions.png"
+
+# plt.savefig(plot_file, dpi=300)
+
+# plt.close()
+
+# print(f"Saved plot: {plot_file}")

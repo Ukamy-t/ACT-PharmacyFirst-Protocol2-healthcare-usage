@@ -225,7 +225,7 @@ actions:
         dataset: output/dataset_patients_snomed_impetigo.csv.gz
 
   process_dataset_snomed_count:
-    run: python:v2 analysis/validation_snomed/process.py --output output/snomed_count_summary.csv
+    run: python:v2 analysis/validation_snomed/process.py --output output/snomed_count_summary_uti.csv
     needs: [
       generate_dataset_snomed_count_uti,
       generate_dataset_snomed_count_sinusitis,
@@ -237,8 +237,13 @@ actions:
     ]
     outputs:
       moderately_sensitive:
-        output_tables: output/snomed_count_summary.csv
-        output_plots: output/snomed_count_top10_all_conditions.png
+        snomed_count_summary_uti: output/snomed_count_summary_uti.csv
+        snomed_count_summary_sinusitis: output/snomed_count_summary_sinusitis.csv
+        snomed_count_summary_insectbite: output/snomed_count_summary_insectbite.csv
+        snomed_count_summary_otitismedia: output/snomed_count_summary_otitismedia.csv
+        snomed_count_summary_sorethroat: output/snomed_count_summary_sorethroat.csv
+        snomed_count_summary_shingles: output/snomed_count_summary_shingles.csv
+        snomed_count_summary_impetigo: output/snomed_count_summary_impetigo.csv
 
 
   #################################################################

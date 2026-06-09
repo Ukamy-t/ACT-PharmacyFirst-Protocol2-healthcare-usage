@@ -242,7 +242,7 @@ f2f > online > telephone > othermode.
 Outputs:
 - gp_pf_consultation_f2f
 - gp_pf_consultation_online
-- gp_pf_consultation_f2f_telephone
+- gp_pf_consultation_telephone
 - gp_pf_consultation_othermode
 '''
 pf_conditions_gp_code_set = []
@@ -335,7 +335,7 @@ but only for control conditions rather than PF-conditions
 Outputs:
 - gp_control_consultation_f2f
 - gp_control_consultation_online
-- gp_control_consultation_f2f_telephone
+- gp_control_consultation_telephone
 - gp_control_consultation_othermode
 '''
 control_conditions_gp_code_set = []
@@ -424,7 +424,7 @@ gp_control_other = gp_control_condition_all_events.where(~has_f2f_control & ~has
 dataset.gp_control_consultation_f2f = (gp_control_f2f.date.count_distinct_for_patient())
 dataset.gp_control_consultation_online = (gp_control_online.date.count_distinct_for_patient())
 dataset.gp_control_consultation_telephone = (gp_control_telephone.date.count_distinct_for_patient())
-dataset.gp_control_consultation_other = (gp_control_other.date.count_distinct_for_patient())
+dataset.gp_control_consultation_othermode = (gp_control_other.date.count_distinct_for_patient())
 
 ########################################################
 '''

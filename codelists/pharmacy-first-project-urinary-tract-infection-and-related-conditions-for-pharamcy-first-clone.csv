@@ -8,7 +8,7 @@ code,term
 1092371000119103,Pyelonephritis caused by Salmonella
 110041000119104,Reactive arthritis co-occurrent and due to nonspecific urethritis
 110081000119109,Bacterial vaginosis in pregnancy
-111830007,Tuberculosis of urinary organs
+111830007,Infection of urinary organ caused by Mycobacterium tuberculosis complex
 1148870007,Pyuria due to bacterial urinary tract infection
 1148932007,Cystitis caused by virus
 1149232006,Infection of urachal sinus
@@ -29,6 +29,8 @@ code,term
 129128006,Infectious disorder of kidney
 1335833004,Inflammation of urethra caused by Mycoplasma genitalium
 1351661007,Inflammation of urethra caused by Schistosoma
+1365900000,Infection of urinary system caused by Mycobacterium tuberculosis complex
+1365901001,Infection of urinary tract proper caused by Mycobacterium tuberculosis complex
 1366183005,Viral infection of kidney
 139466007,Recurrent urinary tract infections
 1469007,Miscarriage with urinary tract infection
@@ -40,6 +42,7 @@ code,term
 162183000,Recurrent urinary tract infections
 16271000119108,Pyelonephritis in pregnancy
 16697701000119103,Infection associated with stent of urinary tract
+16733121000119100,Infection associated with urinary neurostimulator
 16751003,Acute tubulointerstitial nephritis associated with systemic infection
 16916631000119104,Urinary tract infection caused by Streptococcus agalactiae
 1723008,Urethral stricture due to schistosomiasis

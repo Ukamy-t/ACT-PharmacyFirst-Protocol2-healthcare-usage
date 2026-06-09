@@ -115,10 +115,12 @@ code,term
 1356801009,Damage of joint of pelvic wall during vaginal delivery
 1356815006,Presentation of prolapsed upper limb of fetus
 1356816007,Presentation of prolapsed hand of fetus
+1359744003,Aspiration of ectopic interstitial uterine pregnancy
 1363121004,Unassisted birth
 1363272004,Thierry spatulas vaginal delivery of fetus
 1365933005,Mechanical induction of labor
 1371301003,Cesarean section with delivery of fetal head using forceps
+1373591004,Removal of ectopic intraligamentous fetus
 13859001,Premature birth of newborn twins
 14022007,"Fetal death, affecting management of mother"
 14049007,Chaussier's sign
@@ -532,7 +534,6 @@ code,term
 249089009,Fetal mouth presenting
 249090000,Fetal ear presenting
 249091001,Fetal nose presenting
-249098007,Knee presentation
 249099004,Single knee presentation
 249100007,Double knee presentation
 249104003,Dorsoanterior shoulder presentation
@@ -721,7 +722,7 @@ code,term
 31208007,Medical induction of labor
 312974005,Preterm premature rupture of membranes
 315307003,Repair of obstetric laceration of lower urinary tract
-315308008,Dilatation of cervix for delivery
+315308008,Dilation of cervix for delivery
 31939001,Repair of obstetric laceration of cervix
 320003,"Cervical dilatation, 1cm"
 3230006,Illegal abortion with afibrinogenemia
@@ -805,7 +806,7 @@ code,term
 399031001,Fourth degree perineal laceration
 399363000,Late fetal death affecting management of mother
 4006006,Fetal tachycardia affecting management of mother
-40219000,Delivery by Malstrom's extraction with episiotomy
+40219000,Delivery by Malmström vacuum extraction with episiotomy
 40405003,Illegal abortion with cerebral anoxia
 40444006,Miscarriage with acute necrosis of liver
 40500006,Illegal abortion with laceration of uterus
@@ -829,6 +830,7 @@ code,term
 43306002,Miscarriage complicated by embolism
 43715006,Secondary uterine inertia
 43808007,"Cervical dilatation, 4cm"
+440148001,Partial excision of uterus for removal of interstitial ectopic pregnancy
 44101005,Illegal abortion with air embolism
 441619002,Repair of obstetric laceration of perineum and anal sphincter and mucosa of rectum
 44223004,Premature rupture of membranes
@@ -1172,7 +1174,7 @@ code,term
 89934007,Crowning
 8996006,Illegal abortion complicated by renal failure
 90306000,Trial labor
-90438006,Delivery by Malstrom's extraction
+90438006,Delivery by Malmström vacuum extraction
 90450000,Illegal abortion with pelvic peritonitis
 90532005,Central laceration during delivery
 921611000000101,Intrapartum stillbirth

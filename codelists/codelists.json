@@ -54,11 +54,11 @@
       "downloaded_at": "2026-03-09 12:58:22.414901Z",
       "sha": "a39f3a0127ab5cf22291218cd896ba3cc5ef1764"
     },
-    "pharmacy-first-project-urinary-tract-infection-and-related-conditions.csv": {
-      "id": "pharmacy-first-project/urinary-tract-infection-and-related-conditions/065e84d6",
-      "url": "https://www.opencodelists.org/codelist/pharmacy-first-project/urinary-tract-infection-and-related-conditions/065e84d6/",
-      "downloaded_at": "2026-03-09 12:58:22.437455Z",
-      "sha": "492873513c0383edf69bdad2fcbc0bf1aeae693d"
+    "pharmacy-first-project-urinary-tract-infection-and-related-conditions-for-pharamcy-first-clone.csv": {
+      "id": "pharmacy-first-project/urinary-tract-infection-and-related-conditions-for-pharamcy-first-clone/59d4b6af",
+      "url": "https://www.opencodelists.org/codelist/pharmacy-first-project/urinary-tract-infection-and-related-conditions-for-pharamcy-first-clone/59d4b6af/",
+      "downloaded_at": "2026-06-09 15:30:26.817671Z",
+      "sha": "638c64fedf67c88cdecdbdb82221d2ec14512f49"
     },
     "pharmacy-first-project-impetigo-related-conditions-administration-codes-for-pharmacy-first.csv": {
       "id": "pharmacy-first-project/impetigo-related-conditions-administration-codes-for-pharmacy-first/1de090ed",
@@ -91,10 +91,10 @@
       "sha": "e48df7a6248aa368c4b48185fda5d6271c211850"
     },
     "pharmacy-first-project-insect-bites-and-related-conditions-administration-codes-for-pharmacy-first.csv": {
-      "id": "pharmacy-first-project/insect-bites-and-related-conditions-administration-codes-for-pharmacy-first/6d9ae4ef",
-      "url": "https://www.opencodelists.org/codelist/pharmacy-first-project/insect-bites-and-related-conditions-administration-codes-for-pharmacy-first/6d9ae4ef/",
-      "downloaded_at": "2026-03-09 12:58:22.585484Z",
-      "sha": "a235fe38aa569dc5964a9c2c6b369719df2c25d0"
+      "id": "pharmacy-first-project/insect-bites-and-related-conditions-administration-codes-for-pharmacy-first/546f36c3",
+      "url": "https://www.opencodelists.org/codelist/pharmacy-first-project/insect-bites-and-related-conditions-administration-codes-for-pharmacy-first/546f36c3/",
+      "downloaded_at": "2026-06-09 15:30:27.356926Z",
+      "sha": "049ccecba23905d8c3bd3653c46a82f98b7c7848"
     },
     "pharmacy-first-project-urinary-catheter-administration-codes-for-pharmacy-first.csv": {
       "id": "pharmacy-first-project/urinary-catheter-administration-codes-for-pharmacy-first/5de5456b",
@@ -115,10 +115,10 @@
       "sha": "b3329a85816a499a43084ff685685db7d82d969a"
     },
     "pharmacy-first-project-end-of-pregnancy-narrow.csv": {
-      "id": "pharmacy-first-project/end-of-pregnancy-narrow/0cd68ba0",
-      "url": "https://www.opencodelists.org/codelist/pharmacy-first-project/end-of-pregnancy-narrow/0cd68ba0/",
-      "downloaded_at": "2026-03-09 16:10:20.167967Z",
-      "sha": "d94f23419579baeaf562fb06c263959ec18c469a"
+      "id": "pharmacy-first-project/end-of-pregnancy-narrow/0ea65d10",
+      "url": "https://www.opencodelists.org/codelist/pharmacy-first-project/end-of-pregnancy-narrow/0ea65d10/",
+      "downloaded_at": "2026-06-09 15:30:27.943177Z",
+      "sha": "b2bf20d78b94834ac9a50dcb4c706f7f19c2a982"
     },
     "user-VickiPalin-pregnancy_edd_snomed.csv": {
       "id": "user/VickiPalin/pregnancy_edd_snomed/64193fae",

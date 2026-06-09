@@ -66,7 +66,8 @@ tx_codelist_pf_urinary_tract_infection = codelist_from_csv(
 ####################################################
 #Snomed codes used for PF conditions by GPs
 gp_snomed_codelist_uti = codelist_from_csv(
-    "codelists/pharmacy-first-project-urinary-tract-infection-and-related-conditions.csv",
+    # "codelists/pharmacy-first-project-urinary-tract-infection-and-related-conditions.csv",
+    "codelists/pharmacy-first-project-urinary-tract-infection-and-related-conditions-for-pharamcy-first-clone.csv",
     column="code",
 )  
 gp_snomed_codelist_impetigo = codelist_from_csv(

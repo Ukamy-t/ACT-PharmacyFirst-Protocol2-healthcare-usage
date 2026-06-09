@@ -23,7 +23,7 @@ conditions = [
 ]
 
 gp_snomed_codelist_files = {
-    "uti": "codelists/pharmacy-first-project-urinary-tract-infection-and-related-conditions.csv",
+    "uti": "codelists/pharmacy-first-project-urinary-tract-infection-and-related-conditions-for-pharamcy-first-clone.csv",
     "sinusitis": "codelists/pharmacy-first-project-sinusitis-related-conditions-administration-codes-for-pharmacy-first.csv",
     "insectbite": "codelists/pharmacy-first-project-insect-bites-and-related-conditions-administration-codes-for-pharmacy-first.csv",
     "otitismedia": "codelists/pharmacy-first-project-otitis-media-and-related-conditions.csv",

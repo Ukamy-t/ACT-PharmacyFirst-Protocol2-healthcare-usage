@@ -1,8 +1,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-input_file = "output/patient_measures_consultation_mode.csv"
-output_file = "output/patient_measures_consultation_mode_ordered.csv"
+input_file = "output/patient_measures_consultation_mode_june.csv"
+output_file = "output/patient_measures_consultation_mode_ordered_june.csv"
 
 df = pd.read_csv(input_file)
 
@@ -106,7 +106,7 @@ for month in months:
 
 summary_df = pd.DataFrame(summary_rows)
 summary_df.to_csv(
-    "output/patient_measures_consultation_mode_summary.csv",
+    "output/patient_measures_consultation_mode_summary_june.csv",
     index=False,
 )
 
@@ -136,5 +136,5 @@ ax.set_title("GP PF consultation count by mode and month")
 
 plt.xticks(rotation=45)
 plt.tight_layout()
-plt.savefig("output/patient_measures_gp_pf_consultation_by_mode.png",dpi=300,)
+plt.savefig("output/patient_measures_gp_pf_consultation_by_mode_june.png",dpi=300,)
 plt.close()

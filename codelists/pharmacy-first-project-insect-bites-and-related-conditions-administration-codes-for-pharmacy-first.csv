@@ -118,6 +118,9 @@ code,term
 1366292003,Nonvenomous insect bite of thumb with infection
 1366293008,Nonvenomous insect bite of posterior thorax with infection
 13680009,Cellulitis of forearm
+1372801007,Cellulitis of clavicular region
+1372802000,Cellulitis of calf of leg
+1372805003,Cellulitis of skin of anterior surface of knee
 14096004,Nonvenomous insect bite of scapular region with infection
 15034009,Nonvenomous insect bite of breast with infection
 156304001,(Cellulitis &/or abscess finger/toe) or (felon - whitlow)
@@ -383,6 +386,10 @@ code,term
 584541000000100,Cellulitis and abscess of trunk NOS
 584551000000102,Cellulitis and abscess of arm NOS
 58945008,Cellulitis of chin
+59101000087100,Cellulitis of left heel
+59111000087103,Cellulitis of right heel
+59141000087102,Cellulitis of calf of left lower leg
+59151000087104,Cellulitis of calf of right lower leg
 59443003,Nonvenomous insect bite of thigh with infection
 59532009,Cellulitis of chest wall
 60298004,Nonvenomous insect bite of forearm with infection
@@ -436,6 +443,10 @@ code,term
 860816004,Cellulitis at injection site
 88361008,Cellulitis of groin
 91060006,Nonvenomous insect bite of wrist with infection
+92351000087104,Cellulitis of left clavicular region
+92361000087101,Cellulitis of right clavicular region
+92741000087103,Cellulitis of skin of anterior surface of left knee
+92751000087100,Cellulitis of skin of anterior surface of right knee
 9557000,Cellulitis of hip
 95806007,Cellulitis of external ear
 9701000119103,Cellulitis of vaginal cuff

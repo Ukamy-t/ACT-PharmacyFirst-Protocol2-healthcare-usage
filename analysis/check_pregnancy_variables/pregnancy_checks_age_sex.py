@@ -4,7 +4,9 @@ import os
 import matplotlib.pyplot as plt
 measures_dir = "output/measures"
 
-for age_str in ["o65", "u16"]:
+age_band_list = ["o65", "16_19", "u16"]
+
+for age_str in age_band_list:
     # Source of pregnant/not pregnant status:
     df = pd.read_csv(f"{measures_dir}/pregnant_source_{age_str}.csv")
 
@@ -71,7 +73,7 @@ file_descriptions = {
 }
 
 # Import them as dataframes and create summary tables and plots for each
-for age_str in ["o65", "u16"]:
+for age_str in age_band_list:
     for file in file_descriptions.keys():
         # get string 
         desc = file_descriptions.get(file, ["Unknown check", ""])[0]

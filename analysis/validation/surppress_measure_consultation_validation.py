@@ -45,14 +45,42 @@ for col in count_columns:
         release_df[col] = release_df[col].apply(suppress_count)
 
 
+# for idx, row in release_df.iterrows():
+#     num = summary_df.loc[idx, "pf_consultation_eligibility_numerator"]
+#     den = summary_df.loc[idx, "pf_consultation_eligibility_denominator"]
+
+#     if pd.notna(num) and pd.notna(den) and (num <= 7 or den <= 7):
+#         release_df.loc[idx, "pf_consultation_eligibility_ratio"] = REDACTED
+#         release_df.loc[idx, "pf_consultation_eligibility_all_eligible"] = REDACTED
+
 for idx, row in release_df.iterrows():
-    num = summary_df.loc[idx, "pf_consultation_eligibility_numerator"]
-    den = summary_df.loc[idx, "pf_consultation_eligibility_denominator"]
+    raw_num = summary_df.loc[idx, "pf_consultation_eligibility_numerator"]
+    raw_den = summary_df.loc[idx, "pf_consultation_eligibility_denominator"]
 
-    if pd.notna(num) and pd.notna(den) and (num <= 7 or den <= 7):
+    release_num = release_df.loc[idx, "pf_consultation_eligibility_numerator"]
+    release_den = release_df.loc[idx, "pf_consultation_eligibility_denominator"]
+
+    if pd.notna(raw_num) and pd.notna(raw_den) and (raw_num <= 7 or raw_den <= 7):
         release_df.loc[idx, "pf_consultation_eligibility_ratio"] = REDACTED
-        release_df.loc[idx, "pf_consultation_eligibility_all_eligible"] = REDACTED
 
+        if "pf_consultation_eligibility_all_eligible" in release_df.columns:
+            release_df.loc[idx, "pf_consultation_eligibility_all_eligible"] = REDACTED
+
+    elif release_den in [0, REDACTED] or pd.isna(release_den):
+        release_df.loc[idx, "pf_consultation_eligibility_ratio"] = None
+
+        if "pf_consultation_eligibility_all_eligible" in release_df.columns:
+            release_df.loc[idx, "pf_consultation_eligibility_all_eligible"] = None
+
+    else:
+        release_df.loc[idx, "pf_consultation_eligibility_ratio"] = (
+            release_num / release_den
+        )
+
+        if "pf_consultation_eligibility_all_eligible" in release_df.columns:
+            release_df.loc[idx, "pf_consultation_eligibility_all_eligible"] = (
+                release_num == release_den
+            )
 
 release_df.to_csv(output_file, index=False)
 

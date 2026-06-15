@@ -80,6 +80,10 @@ measure_order = [
     "pf_sorethroat_eligible_among_pf_consultation",
     "pf_shingles_eligible_among_pf_consultation",
     "pf_impetigo_eligible_among_pf_consultation",
+
+    # Overall appointment totals
+    "appointment_scheduled_total",
+    "appointment_seen_total",
 ]
 
 ########################################################

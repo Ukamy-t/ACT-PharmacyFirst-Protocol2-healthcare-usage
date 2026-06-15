@@ -144,3 +144,19 @@ for condition, eligibility_name in pf_condition_map.items():
         ) & measure_base_population,
     )
 
+# retrive total number of appointments
+########################################################
+# Overall appointment totals
+########################################################
+
+measures.define_measure(
+    name="appointment_scheduled_total",
+    numerator=dataset.appointment_scheduled,
+    denominator=measure_base_population,
+)
+
+measures.define_measure(
+    name="appointment_seen_total",
+    numerator=dataset.appointment_seen,
+    denominator=measure_base_population,
+)

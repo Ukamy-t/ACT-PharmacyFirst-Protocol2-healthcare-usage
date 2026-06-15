@@ -1,6 +1,7 @@
 # analysis/dataset_definition_snomed_validation.py
 # opensafely run generate_dataset_snomed_count
 # gunzip -c output/dataset_patients_snomed.csv.gz > output/dataset_patients_snomed.csv
+# gunzip -c output/dataset_patients_snomed_insectbite.csv.gz > output/dataset_patients_snomed_insectbite.csv
 
 from ehrql import create_dataset, get_parameter, days, weeks, months, show, case, when
 from ehrql.tables.tpp import (patients, practice_registrations, clinical_events)

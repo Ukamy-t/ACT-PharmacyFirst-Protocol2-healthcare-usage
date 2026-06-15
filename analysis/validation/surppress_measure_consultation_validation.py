@@ -82,6 +82,20 @@ for idx, row in release_df.iterrows():
                 release_num == release_den
             )
 
+release_df = release_df.rename(
+    columns={
+        "pf_consultation_eligibility_ratio": (
+            "proportion_pf_consultation_patients_eligible"
+        ),
+        "pf_consultation_eligibility_numerator": (
+            "pf_consultation_patients_eligible_count"
+        ),
+        "pf_consultation_eligibility_denominator": (
+            "pf_consultation_patients_total_count"
+        ),
+    }
+)
+
 release_df.to_csv(output_file, index=False)
 
 ########################################################

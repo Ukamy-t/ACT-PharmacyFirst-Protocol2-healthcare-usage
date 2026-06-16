@@ -1,37 +1,3 @@
-# Condition: acute otitis media
-# - inclusion: children aged 1 to 17 years
-# - exclusion: none
-
-# Condition: acute sinusitis
-# - inclusion: age >= 12
-# - exclusion: none
-
-# Condition: acute sore throat
-# - inclusion: age >= 5
-# - exclusion: pregnant individuals under 16s
-
-# Condition: infected insect bites
-# - inclusion: age >= 1
-# - exclusion: pregnant individuals under 16s
-
-# Condition: shingles
-# - inclusion: age >= 18
-# - exclusion: pregnant individuals
-
-# Condition: impetigo
-# - inclusion: age >= 1
-# - exclusion: 
-# - - bullous impetigo, 
-# - - recurrent impetigo (defined as 2 or more episodes in the same year), 
-# - - pregnant individuals under 16 years
-
-# Condition: Uncomplicated UTI
-# - inclusion: women aged 16 to 64 years
-# - exclusion: 
-# - - pregnant individuals
-# - - urinary catheter
-# - - recurrent UTI: 2 episodes in last 6 months, or 3 episodes in last 12 months
-
 import pandas as pd
 
 input_file = "output/patient_measures_eligibility_validation.csv"
@@ -41,69 +7,152 @@ df = pd.read_csv(input_file)
 
 measure_order = [
     # Pregnancy-related
-    "base_pop_pregnancy_category",
-    "pregnant_by_sex",
-
-    # Impetigo-related
-    "base_pop_bullous_impetigo",
-    "base_pop_recurrent_impetigo",
-    "base_pop_bullous_and_recurrent_impetigo",
-    "pf_impetigo_eligible_among_base",
-    "pf_impetigo_excluded_due_to_bullous",
-    "pf_impetigo_excluded_due_to_recurrent",
-    "pf_impetigo_excluded_due_to_pregnant_under16",
-
-    # UTI-related
-    "base_pop_catheter_status",
-    "base_pop_recurrent_uti_6m",
-    "base_pop_recurrent_uti_12m",
-    "base_pop_recurrent_uti",
-    "pf_uti_eligible_among_base",
-    "pf_uti_excluded_due_to_age_sex",
-    "pf_uti_excluded_due_to_pregnancy",
-    "pf_uti_excluded_due_to_catheter",
-    "pf_uti_excluded_due_to_recurrent_uti",
+    "pregnancy_category_among_base",
+    "pregnant_this_month_among_base_by_sex_age_validation",
 
     # Otitis media
-    "pf_otitis_media_eligible_among_base",
+    "otitismedia_eligible_among_base",
+    "otitismedia_excluded_among_base_by_age_band",
+    "otitismedia_pf_users_not_eligible",
+    "otitismedia_pf_users_not_eligible_by_age_band",
 
     # Sinusitis
-    "pf_sinusitis_eligible_among_base",
+    "sinusitis_eligible_among_base",
+    "sinusitis_excluded_among_base_by_age_band",
+    "sinusitis_pf_users_not_eligible",
+    "sinusitis_pf_users_not_eligible_by_age_band",
 
     # Sore throat
-    "pf_sore_throat_eligible_among_base",
-    "pf_sore_throat_excluded_due_to_age_under5",
-    "pf_sore_throat_excluded_due_to_pregnant_under16",
+    "sorethroat_eligible_among_base",
+    "sorethroat_excluded_among_base_by_age_band",
+    "sorethroat_excluded_among_base_due_to_pregnant_female_under16",
+    "sorethroat_pf_users_not_eligible",
+    "sorethroat_pf_users_not_eligible_by_age_band",
+    "sorethroat_pf_users_not_eligible_by_sex_age_pregnancy",
 
     # Insect bites
-    "pf_insect_bite_eligible_among_base",
+    "insectbite_eligible_among_base",
+    "insectbite_excluded_among_base_by_age_band",
+    "insectbite_excluded_among_base_due_to_pregnant_female_under16",
+    "insectbite_pf_users_not_eligible",
+    "insectbite_pf_users_not_eligible_by_age_band",
+    "insectbite_pf_users_not_eligible_by_sex_age_pregnancy",
 
     # Shingles
-    "pf_shingles_eligible_among_base",
-    "pf_shingles_excluded_due_to_age_under18",
-    "pf_shingles_excluded_due_to_pregnancy",
+    "shingles_eligible_among_base",
+    "shingles_excluded_among_base_by_age_band",
+    "shingles_excluded_among_base_due_to_pregnant_female",
+    "shingles_pf_users_not_eligible",
+    "shingles_pf_users_not_eligible_by_age_band",
+    "shingles_pf_users_not_eligible_due_to_pregnant_female",
+    "shingles_pf_users_not_eligible_by_sex_age_pregnancy",
+
+    # Impetigo
+    "bullous_impetigo_among_base",
+    "recurrent_impetigo_among_base",
+    "bullous_and_recurrent_impetigo_among_base",
+    "impetigo_eligible_among_base",
+    "impetigo_excluded_among_base_by_age_band",
+    "impetigo_excluded_among_base_due_to_bullous",
+    "impetigo_excluded_among_base_due_to_recurrent",
+    "impetigo_excluded_among_base_due_to_pregnant_female_under16",
+    "impetigo_pf_users_not_eligible",
+    "impetigo_pf_users_not_eligible_by_age_band",
+    "impetigo_pf_users_not_eligible_due_to_bullous",
+    "impetigo_pf_users_not_eligible_due_to_recurrent",
+    "impetigo_pf_users_not_eligible_due_to_pregnant_female_under16",
+    "impetigo_pf_users_not_eligible_by_sex_age_pregnancy",
+
+    # UTI
+    "catheter_status_among_base",
+    "recurrent_uti_6m_among_base",
+    "recurrent_uti_12m_among_base",
+    "recurrent_uti_among_base",
+    "uti_eligible_among_base",
+    "uti_excluded_among_base_by_sex_age_band",
+    "uti_excluded_among_base_due_to_age_sex",
+    "uti_excluded_among_base_due_to_pregnant_female",
+    "uti_excluded_among_base_due_to_catheter",
+    "uti_excluded_among_base_due_to_recurrent_uti",
+    "uti_pf_users_not_eligible",
+    "uti_pf_users_not_eligible_by_sex_age_band",
+    "uti_pf_users_not_eligible_due_to_age_sex",
+    "uti_pf_users_not_eligible_due_to_pregnant_female",
+    "uti_pf_users_not_eligible_due_to_catheter",
+    "uti_pf_users_not_eligible_due_to_recurrent_uti",
+    "uti_pf_users_not_eligible_by_sex_age_pregnancy",
 
     # Overall eligible
     "pf_overall_eligible_among_base",
+    "pf_overall_user_not_eligible",
 ]
 
-df["measure_order"] = df["measure"].apply(
-    lambda x: measure_order.index(x) if x in measure_order else 999
+measure_rank = {measure: i for i, measure in enumerate(measure_order)}
+
+df["measure_order"] = (
+    df["measure"]
+    .map(measure_rank)
+    .fillna(999)
+    .astype(int)
 )
+
+# Combine condition-specific age-band columns into one display column.
+age_band_cols = [
+    "age_band_pregnancy_validation",
+    "age_band_otitismedia",
+    "age_band_sinusitis",
+    "age_band_sorethroat",
+    "age_band_insectbite",
+    "age_band_shingles",
+    "age_band_impetigo",
+    "age_band_uti",
+]
+
+existing_age_band_cols = [col for col in age_band_cols if col in df.columns]
+
+if existing_age_band_cols:
+    df["age_band"] = (
+        df[existing_age_band_cols]
+        .bfill(axis=1)
+        .iloc[:, 0]
+    )
+    df = df.drop(columns=existing_age_band_cols)
 
 sort_cols = ["measure_order", "measure", "interval_start"]
 
-if "sex" in df.columns:
-    sort_cols.append("sex")
-
-if "age_band" in df.columns:
-    sort_cols.append("age_band")
-
-if "pregnant" in df.columns:
-    sort_cols.append("pregnant")
+for col in ["sex", "age_band", "pregnant"]:
+    if col in df.columns:
+        sort_cols.append(col)
 
 df = df.sort_values(sort_cols).drop(columns=["measure_order"])
 
+# Optional: put commonly reviewed columns near the front
+front_cols = [
+    "measure",
+    "interval_start",
+    "interval_end",
+    "sex",
+    "age_band",
+    "pregnant",
+    "numerator",
+    "denominator",
+    "value",
+]
+
+front_cols = [col for col in front_cols if col in df.columns]
+other_cols = [col for col in df.columns if col not in front_cols]
+df = df[front_cols + other_cols]
+
 df.to_csv(output_file, index=False)
 
+unknown_measures = sorted(set(df["measure"]) - set(measure_order))
+
 print(f"Saved ordered measures to {output_file}")
+
+if unknown_measures:
+    print(
+        "Warning: the following measures were not included in measure_order "
+        "and were placed at the end:"
+    )
+    for measure in unknown_measures:
+        print(f"- {measure}")

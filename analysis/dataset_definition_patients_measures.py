@@ -609,7 +609,9 @@ dataset.pregnant = case(
     # recent pregnancy code
     when(dataset.pregnancy_code.is_not_null()).then("P"),
     otherwise="0",)
-pregnant_this_month = dataset.pregnant.is_in(("P-E", "P-EDD", "P"))
+# pregnant_this_month = dataset.pregnant.is_in(("P-E", "P-EDD", "P"))
+# Age <= 11: pregnancy flags are considered too unreliable and are not counted as pregnant.
+pregnant_this_month = (dataset.pregnant.is_in(("P-E", "P-EDD", "P")) & (age >= 12))
 dataset.pregnant_this_month = pregnant_this_month
 
 # bullous_impetigo during the specific month

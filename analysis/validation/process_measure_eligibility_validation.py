@@ -1,6 +1,6 @@
 import pandas as pd
 
-input_file = "output/patient_measures_eligibility_validation.csv"
+input_file = "output/patient_measures_eligibility_validation0622.csv"
 output_file = "output/patient_measures_eligibility_validation_ordered.csv"
 
 df = pd.read_csv(input_file)
@@ -8,11 +8,13 @@ df = pd.read_csv(input_file)
 measure_order = [
     # Pregnancy-related
     "pregnancy_category_among_base",
-    "pregnant_this_month_among_base_by_sex_age_validation",
+    "pregnancy_among_base_by_sex_age",
 
     # Otitis media
+    # "base_by_otitismedia_age_band",
     "otitismedia_eligible_among_base",
-    "otitismedia_excluded_among_base_by_age_band",
+    "otitismedia_eligible_among_base_by_age",
+    "otitismedia_excluded_among_base",
     "otitismedia_pf_users_not_eligible",
     "otitismedia_pf_users_not_eligible_by_age_band",
 
@@ -131,12 +133,12 @@ front_cols = [
     "measure",
     "interval_start",
     "interval_end",
+    "pregnant",
     "sex",
     "age_band",
-    "pregnant",
     "numerator",
     "denominator",
-    "value",
+    "ratio",
 ]
 
 front_cols = [col for col in front_cols if col in df.columns]

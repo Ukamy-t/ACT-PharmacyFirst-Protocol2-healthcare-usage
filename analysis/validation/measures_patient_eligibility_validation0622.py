@@ -5,7 +5,7 @@ measures = create_measures()
 measures.configure_disclosure_control(enabled=False)
 measures.define_defaults(
     intervals=months(1).starting_on("2025-10-01"),
-    # intervals=years(2).starting_on("2024-02-01")
+    # intervals=months(1).starting_on("2024-02-01")
 )
 
 measure_base_population = (
@@ -23,6 +23,25 @@ pf_eligible_population = (
 pf_user_population = (
     (dataset.pf_consultation_general > 0)
     & measure_base_population
+)
+
+measures.define_measure(
+    name="debug_population_by_sex",
+    numerator=pf_user_population,
+    denominator=measure_base_population,
+    group_by={"sex": dataset.sex},
+)
+
+measures.define_measure(
+    name="debug_base_population_as_numerator",
+    numerator=measure_base_population,
+    denominator=measure_base_population,
+)
+
+measures.define_measure(
+    name="debug_age_valid_as_numerator",
+    numerator=dataset.age <= 120,
+    denominator=measure_base_population,
 )
 
 
@@ -46,13 +65,14 @@ age_band_pregnancy_validation = case(
 
 measures.define_measure(
     name="pregnancy_category_among_base",
-    numerator=dataset.pregnant_this_month,
+    # numerator=dataset.pregnant_this_month,
+    numerator=measure_base_population,
     denominator=measure_base_population,
     group_by={"pregnant": dataset.pregnant},
 )
 
 measures.define_measure(
-    name="pregnant_this_month_among_base_by_sex_age_validation",
+    name="pregnancy_among_base_by_sex_age",
     numerator=dataset.pregnant_this_month,
     denominator=measure_base_population,
     group_by={
@@ -90,18 +110,32 @@ age_band_otitismedia = case(
     when(dataset.age > 64).then("65+"),  # not eligible
 )
 
+# measures.define_measure(
+#     name="base_by_otitismedia_age_band",
+#     numerator=measure_base_population,
+#     denominator=measure_base_population,
+#     group_by={"age_band_otitismedia": age_band_otitismedia},
+# )
+
 measures.define_measure(
     name="otitismedia_eligible_among_base",
+    numerator=dataset.include_patient_otitis_media,
+    denominator=measure_base_population,
+    # group_by={"age_band_otitismedia": age_band_otitismedia},
+)
+
+measures.define_measure(
+    name="otitismedia_eligible_among_base_by_age",
     numerator=dataset.include_patient_otitis_media,
     denominator=measure_base_population,
     group_by={"age_band_otitismedia": age_band_otitismedia},
 )
 
 measures.define_measure(
-    name="otitismedia_excluded_among_base_by_age_band",
+    name="otitismedia_excluded_among_base",
     numerator=~dataset.include_patient_otitis_media,
     denominator=measure_base_population,
-    group_by={"age_band_otitismedia": age_band_otitismedia},
+    # group_by={"age_band_otitismedia": age_band_otitismedia},
 )
 
 otitismedia_pf_user_population = (
@@ -452,12 +486,25 @@ measures.define_measure(
     denominator=measure_base_population,
 )
 
-age_band_impetigo = age_band_insectbite
-
+age_band_impetigo = case(
+    when(dataset.age.is_null()).then("Missing"),
+    when(dataset.age < 1).then("<1"),
+    when(dataset.age < 16).then("1-15"),
+    when(dataset.age < 17).then("16"),
+    when(dataset.age <= 64).then("17-64"),
+    when(dataset.age > 64).then("65+"),
+    # otherwise="65+",
+)
+# debug_age_band_simple = case(
+#     when(dataset.age.is_null()).then("Missing"),
+#     when(dataset.age < 1).then("<1"),
+#     otherwise="1+",
+# )
 measures.define_measure(
     name="impetigo_eligible_among_base",
     numerator=dataset.include_patient_impetigo,
     denominator=measure_base_population,
+    # group_by={"debug_age_band_simple": debug_age_band_simple},
     group_by={"age_band_impetigo": age_band_impetigo},
 )
 

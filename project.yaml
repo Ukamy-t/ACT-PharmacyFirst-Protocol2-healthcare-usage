@@ -115,10 +115,10 @@ actions:
   #       measure_tables: output/patient_measures_eligibility_validation.csv
   
   generate_patient_measures_eligibility:
-    run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation.py --output output/patient_measures_eligibility_validation.csv
+    run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation0622.py --output output/patient_measures_eligibility_validation0622.csv
     outputs:
       moderately_sensitive:
-        measure_tables: output/patient_measures_eligibility_validation.csv
+        measure_tables: output/patient_measures_eligibility_validation0622.csv
   
   process_patient_measures_eligibility:
     run: python:v2 analysis/validation/process_measure_eligibility_validation.py --output output/patient_measures_eligibility_validation_ordered.csv

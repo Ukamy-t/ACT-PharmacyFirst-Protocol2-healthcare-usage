@@ -1,8 +1,8 @@
 patient_id,date_of_birth,date_of_death,sex
-1,1932-07-01,2024-09-28,unknown
-2,1928-06-01,,female
-3,1961-07-01,,male
-4,1915-09-01,,unknown
+1,1932-07-01,,female
+2,1968-06-01,,female
+3,1961-07-01,,female
+4,1995-09-01,,male
 5,2016-08-01,,male
 6,1934-12-01,,male
 7,1979-12-01,,female

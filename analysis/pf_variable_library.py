@@ -34,6 +34,29 @@ def check_code_in_time_window(start_date, end_date, selected_events, codelist):
         .exists_for_patient()
     )
 
+def get_recurrent_anchor_date(start_date, pf_condition_events):
+    """
+    Define anchor date for recurrent condition checks.
+
+    If the patient has a relevant PF consultation in the monthly interval,
+    use the day before their first PF consultation date.
+
+    If the patient has no relevant PF consultation in the monthly interval,
+    use the day before the monthly interval start date.
+    """
+
+    first_pf_condition_date = (
+        pf_condition_events
+        .sort_by(pf_condition_events.date)
+        .first_for_patient()
+        .date
+    )
+
+    return case(
+        when(first_pf_condition_date.is_not_null()).then(first_pf_condition_date - days(1)),
+        otherwise=start_date - days(1),
+    )
+
 # Generic recurrent condition checker
 def check_recurrent_status(index_date,events,codelist,lookback_months,gap_weeks=4,min_episodes=2):
     """

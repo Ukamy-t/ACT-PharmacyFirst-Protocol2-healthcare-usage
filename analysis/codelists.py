@@ -27,6 +27,8 @@ gp_codelist_consultation_telephone = codelist_from_csv(
     column="code"
 )
 
+gp_codelist_consultation_econsultation = ["1068881000000101"]
+
 #PF conditions snomed codes used within PF
 tx_codelist_pf_otitis_media = codelist_from_csv(
     "codelists/opensafely-pharmacy-first-acute-otitis-media-treatment-full-dmd-codelist.csv",

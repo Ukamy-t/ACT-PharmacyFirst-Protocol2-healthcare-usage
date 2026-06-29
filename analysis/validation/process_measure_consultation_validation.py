@@ -26,14 +26,14 @@ measure_order = [
     "pf_consultation_shingles",
     "pf_consultation_impetigo",
 
-    # PF episodes
-    "pf_episode_uti",
-    "pf_episode_sinusitis",
-    "pf_episode_insectbite",
-    "pf_episode_otitismedia",
-    "pf_episode_sorethroat",
-    "pf_episode_shingles",
-    "pf_episode_impetigo",
+    # PF dates
+    "pf_date_uti",
+    "pf_date_sinusitis",
+    "pf_date_insectbite",
+    "pf_date_otitismedia",
+    "pf_date_sorethroat",
+    "pf_date_shingles",
+    "pf_date_impetigo",
 
     # GP consultations
     "gp_consultation_uti",
@@ -44,14 +44,14 @@ measure_order = [
     "gp_consultation_shingles",
     "gp_consultation_impetigo",
 
-    # GP episodes
-    "gp_episode_uti",
-    "gp_episode_sinusitis",
-    "gp_episode_insectbite",
-    "gp_episode_otitismedia",
-    "gp_episode_sorethroat",
-    "gp_episode_shingles",
-    "gp_episode_impetigo",
+    # GP dates
+    "gp_date_uti",
+    "gp_date_sinusitis",
+    "gp_date_insectbite",
+    "gp_date_otitismedia",
+    "gp_date_sorethroat",
+    "gp_date_shingles",
+    "gp_date_impetigo",
 
     # A&E primary
     "ae_attendance_total",
@@ -148,9 +148,9 @@ for month in months:
             "condition": condition,
 
             "pf_consultation": get_value(f"pf_consultation_{condition}"),
-            "pf_episode": get_value(f"pf_episode_{condition}"),
+            "pf_date": get_value(f"pf_date_{condition}"),
             "gp_consultation": get_value(f"gp_consultation_{condition}"),
-            "gp_episode": get_value(f"gp_episode_{condition}"),
+            "gp_date": get_value(f"gp_date_{condition}"),
             "ae_primary_count": get_value(f"ae_{condition}_primary_count"),
             "patient_has_non_primary_ae": get_value(f"patient_has_non_primary_ae_{condition}"),
 

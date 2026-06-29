@@ -1,17 +1,31 @@
+import os
 import pandas as pd
 
-input_file = "output/patient_measures_eligibility_validation0622.csv"
-output_file = "output/patient_measures_eligibility_validation_ordered.csv"
 
-df = pd.read_csv(input_file)
+input_files = {
+    "v1": "output/patient_measures_eligibility_validation_v1.csv",
+    "v2": "output/patient_measures_eligibility_validation_v2.csv",
+    "v3": "output/patient_measures_eligibility_validation_v3.csv",
+}
+
+output_files = {
+    "v1": "output/patient_measures_eligibility_validation_ordered_v1.csv",
+    "v2": "output/patient_measures_eligibility_validation_ordered_v2.csv",
+    "v3": "output/patient_measures_eligibility_validation_ordered_v3.csv",
+}
+
 
 measure_order = [
+    # Debug
+    "debug_population_by_sex",
+    "debug_base_population_as_numerator",
+    "debug_age_valid_as_numerator",
+
     # Pregnancy-related
     "pregnancy_category_among_base",
     "pregnancy_among_base_by_sex_age",
 
     # Otitis media
-    # "base_by_otitismedia_age_band",
     "otitismedia_eligible_among_base",
     "otitismedia_eligible_among_base_by_age",
     "otitismedia_excluded_among_base",
@@ -89,72 +103,92 @@ measure_order = [
     "pf_overall_user_not_eligible",
 ]
 
-measure_rank = {measure: i for i, measure in enumerate(measure_order)}
 
-df["measure_order"] = (
-    df["measure"]
-    .map(measure_rank)
-    .fillna(999)
-    .astype(int)
-)
+def process_measure_file(input_file, output_file, version):
+    if not os.path.exists(input_file):
+        print(f"Skipping {version}: input file does not exist: {input_file}")
+        return
 
-# Combine condition-specific age-band columns into one display column.
-age_band_cols = [
-    "age_band_pregnancy_validation",
-    "age_band_otitismedia",
-    "age_band_sinusitis",
-    "age_band_sorethroat",
-    "age_band_insectbite",
-    "age_band_shingles",
-    "age_band_impetigo",
-    "age_band_uti",
-]
+    df = pd.read_csv(input_file)
 
-existing_age_band_cols = [col for col in age_band_cols if col in df.columns]
+    measure_rank = {measure: i for i, measure in enumerate(measure_order)}
 
-if existing_age_band_cols:
-    df["age_band"] = (
-        df[existing_age_band_cols]
-        .bfill(axis=1)
-        .iloc[:, 0]
+    unknown_measures = sorted(set(df["measure"]) - set(measure_order))
+
+    df["measure_order"] = (
+        df["measure"]
+        .map(measure_rank)
+        .fillna(999)
+        .astype(int)
     )
-    df = df.drop(columns=existing_age_band_cols)
 
-sort_cols = ["measure_order", "measure", "interval_start"]
+    # Combine condition-specific age-band columns into one display column.
+    age_band_cols = [
+        "age_band_pregnancy_validation",
+        "age_band_otitismedia",
+        "age_band_sinusitis",
+        "age_band_sorethroat",
+        "age_band_insectbite",
+        "age_band_shingles",
+        "age_band_impetigo",
+        "age_band_uti",
+    ]
 
-for col in ["sex", "age_band", "pregnant"]:
-    if col in df.columns:
-        sort_cols.append(col)
+    existing_age_band_cols = [col for col in age_band_cols if col in df.columns]
 
-df = df.sort_values(sort_cols).drop(columns=["measure_order"])
+    if existing_age_band_cols:
+        df["age_band"] = (
+            df[existing_age_band_cols]
+            .bfill(axis=1)
+            .iloc[:, 0]
+        )
+        df = df.drop(columns=existing_age_band_cols)
 
-# Optional: put commonly reviewed columns near the front
-front_cols = [
-    "measure",
-    "interval_start",
-    "interval_end",
-    "pregnant",
-    "sex",
-    "age_band",
-    "numerator",
-    "denominator",
-    "ratio",
-]
+    # Add version column so the outputs are traceable.
+    df["version"] = version
 
-front_cols = [col for col in front_cols if col in df.columns]
-other_cols = [col for col in df.columns if col not in front_cols]
-df = df[front_cols + other_cols]
+    sort_cols = ["measure_order", "measure", "interval_start"]
 
-df.to_csv(output_file, index=False)
+    for col in ["sex", "age_band", "pregnant"]:
+        if col in df.columns:
+            sort_cols.append(col)
 
-unknown_measures = sorted(set(df["measure"]) - set(measure_order))
+    df = df.sort_values(sort_cols).drop(columns=["measure_order"])
 
-print(f"Saved ordered measures to {output_file}")
+    # Put commonly reviewed columns near the front.
+    front_cols = [
+        "version",
+        "measure",
+        "interval_start",
+        "interval_end",
+        "sex",
+        "age_band",
+        "pregnant",
+        "numerator",
+        "denominator",
+        "ratio",
+    ]
 
-if unknown_measures:
-    print(
-        "Warning: the following measures were not included in measure_order "
-        "and were placed at the end:"
+    front_cols = [col for col in front_cols if col in df.columns]
+    other_cols = [col for col in df.columns if col not in front_cols]
+    df = df[front_cols + other_cols]
+
+    df.to_csv(output_file, index=False)
+
+    print(f"Saved ordered measures for {version} to {output_file}")
+
+    if unknown_measures:
+        print(
+            f"Warning for {version}: the following measures were not included "
+            "in measure_order and were placed at the end:"
+        )
+        for measure in unknown_measures:
+            print(f"- {measure}")
+
+
+for version, input_file in input_files.items():
+    process_measure_file(
+        input_file=input_file,
+        output_file=output_files[version],
+        version=version,
     )
-    for measure in unknown_measures:
-        print(f"- {measure}")

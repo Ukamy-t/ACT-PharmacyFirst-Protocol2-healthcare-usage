@@ -13,9 +13,9 @@ REDACTED = "[REDACTED]"
 
 count_columns = [
     "pf_consultation",
-    "pf_episode",
+    "pf_date",
     "gp_consultation",
-    "gp_episode",
+    "gp_date",
     "ae_primary_count",
     "patient_has_non_primary_ae",
     "pf_consultation_eligibility_numerator",

@@ -151,15 +151,15 @@ pf_med_codelist = (
 )
 """
 
-# Community Pharmacist Consultation Service for minor illness - 1577041000000109
+# Community Pharmacist Consultation Service for minor illness
 pf_consultation_cp_minorillness = ["1577041000000109"]
-# Pharmacy First service - 983341000000102
+# Pharmacy First service
 pf_consultation_service = ["983341000000102"]
-# Community Pharmacy First Service - 2129921000000100 - not used (?)
+# Community Pharmacy First Service
 pf_consultation_cp_service = ["2129921000000100"]
  
 pf_consultation_events_dict = {
-    # "pf_consultation_cp_minorillness": pf_consultation_cp_minorillness, # Community Pharmacist (CP) Consultation Service for minor illness (procedure)
+    "pf_consultation_cp_minorillness": pf_consultation_cp_minorillness, # Community Pharmacist (CP) Consultation Service for minor illness (procedure)
     "pf_consultation_service": pf_consultation_service, # Pharmacy First service (qualifier value)
     "pf_consultation_cp_service": pf_consultation_cp_service, # Community Pharmacy Pharmacy First Service
     "pf_consultation_services_combined": pf_consultation_cp_minorillness + pf_consultation_service + pf_consultation_cp_service,

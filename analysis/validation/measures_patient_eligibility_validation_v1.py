@@ -470,19 +470,19 @@ Checks:
 '''
 measures.define_measure(
     name="bullous_impetigo_among_base",
-    numerator=dataset.bullous_impetigo_this_month,
+    numerator=dataset.bullous_impetigo_last_month,
     denominator=measure_base_population,
 )
 
 measures.define_measure(
     name="recurrent_impetigo_among_base",
-    numerator=dataset.recurrent_impetigo_this_year,
+    numerator=dataset.recurrent_impetigo_12m,
     denominator=measure_base_population,
 )
 
 measures.define_measure(
     name="bullous_and_recurrent_impetigo_among_base",
-    numerator=dataset.bullous_impetigo_this_month & dataset.recurrent_impetigo_this_year,
+    numerator=dataset.bullous_impetigo_last_month & dataset.recurrent_impetigo_12m,
     denominator=measure_base_population,
 )
 
@@ -522,13 +522,13 @@ measures.define_measure(
 
 measures.define_measure(
     name="impetigo_excluded_among_base_due_to_bullous",
-    numerator=dataset.bullous_impetigo_this_month,
+    numerator=dataset.bullous_impetigo_last_month,
     denominator=impetigo_excluded_population,
 )
 
 measures.define_measure(
     name="impetigo_excluded_among_base_due_to_recurrent",
-    numerator=dataset.recurrent_impetigo_this_year,
+    numerator=dataset.recurrent_impetigo_12m,
     denominator=impetigo_excluded_population,
 )
 
@@ -567,13 +567,13 @@ measures.define_measure(
 
 measures.define_measure(
     name="impetigo_pf_users_not_eligible_due_to_bullous",
-    numerator=dataset.bullous_impetigo_this_month,
+    numerator=dataset.bullous_impetigo_last_month,
     denominator=impetigo_pf_user_not_eligible_population,
 )
 
 measures.define_measure(
     name="impetigo_pf_users_not_eligible_due_to_recurrent",
-    numerator=dataset.recurrent_impetigo_this_year,
+    numerator=dataset.recurrent_impetigo_12m,
     denominator=impetigo_pf_user_not_eligible_population,
 )
 
@@ -626,7 +626,7 @@ age_band_uti = case(
 
 measures.define_measure(
     name="catheter_status_among_base",
-    numerator=dataset.catheter_status,
+    numerator=dataset.catheter_12m,
     denominator=measure_base_population,
 )
 
@@ -694,7 +694,7 @@ measures.define_measure(
 
 measures.define_measure(
     name="uti_excluded_among_base_due_to_catheter",
-    numerator=dataset.catheter_status,
+    numerator=dataset.catheter_12m,
     denominator=uti_excluded_population,
 )
 
@@ -751,7 +751,7 @@ measures.define_measure(
 
 measures.define_measure(
     name="uti_pf_users_not_eligible_due_to_catheter",
-    numerator=dataset.catheter_status,
+    numerator=dataset.catheter_12m,
     denominator=uti_pf_user_not_eligible_population,
 )
 

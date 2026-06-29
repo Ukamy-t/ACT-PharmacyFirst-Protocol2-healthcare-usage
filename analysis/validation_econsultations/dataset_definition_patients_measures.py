@@ -390,6 +390,7 @@ Outputs:
 - gp_control_patient_date_f2f
 - gp_control_patient_date_online
 - gp_control_patient_date_telephone
+- gp_control_patient_date_econsultation
 - gp_control_patient_date_othermode
 - gp_control_patient_date_total
 - gp_control_patient_date_mode_sum

@@ -23,10 +23,10 @@ Checks:
 - pf_consultation_general_butno_condition_total should be smaller than pf_consultation_general_total.
 - pf_consultation_condition_sum_total should be compared with pf_consultation_general_total - pf_consultation_general_butno_condition_total.
 - - If condition sum is larger, this suggests some PF consultations may be assigned to more than one condition.
-2. PF consultation count vs same-day consultation count ('episode')
-- For each condition, pf_episode_<condition> should be less than or equal to pf_consultation_<condition>.
-3. GP consultation vs episode
-- For each condition, gp_episode_<condition> should be less than or equal to gp_consultation_<condition>.
+2. PF consultation count vs same-day consultation count ('date')
+- For each condition, pf_date_<condition> should be less than or equal to pf_consultation_<condition>.
+3. GP consultation vs date
+- For each condition, gp_date_<condition> should be less than or equal to gp_consultation_<condition>.
 4. PF consultation count vs GP consultation count 
 - compare by condition
 - change by month
@@ -82,8 +82,8 @@ for condition in pf_conditions:
 
     # check numerator only
     measures.define_measure(
-        name=f"pf_episode_{condition}",
-        numerator=getattr(dataset, f"numerator_pf_episode_{condition}"),
+        name=f"pf_date_{condition}",
+        numerator=getattr(dataset, f"numerator_pf_date_{condition}"),
         denominator=measure_base_population,
     )
 
@@ -96,8 +96,8 @@ for condition in pf_conditions:
 
     # check numerator only
     measures.define_measure(
-        name=f"gp_episode_{condition}",
-        numerator=getattr(dataset, f"numerator_gp_episode_{condition}"),
+        name=f"gp_date_{condition}",
+        numerator=getattr(dataset, f"numerator_gp_date_{condition}"),
         denominator=measure_base_population,
     )
 

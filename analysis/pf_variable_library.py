@@ -58,27 +58,40 @@ def get_recurrent_anchor_date(start_date, pf_condition_events):
     )
 
 # Generic recurrent condition checker
-def check_recurrent_status(index_date,events,codelist,lookback_months,gap_weeks=4,min_episodes=2):
+# def check_recurrent_status(index_date,events,codelist,lookback_months,gap_weeks=4,min_episodes=2):
+#     """
+#     Utilised the function https://docs.opensafely.org/ehrql/reference/language/#DateEventSeries.count_episodes_for_patient
+#     """
+#     # condition_events = (
+#     #     events
+#     #     .where(events.snomedct_code.is_in(codelist))
+#     #     .where(events.date.is_on_or_between(index_date - months(lookback_months),index_date,)
+#     #     )
+#     # )
+#     condition_events = (
+#         events
+#         .where(events.snomedct_code.is_in(codelist))
+#         .where(events.date.is_on_or_between(index_date - months(lookback_months), index_date))
+#         .date
+#     )
+
+#     episode_count = (condition_events.count_episodes_for_patient(weeks(gap_weeks)))
+
+#     return episode_count >= min_episodes
+def check_recurrent_status(window_start,window_end,events,codelist,gap_weeks=4,min_episodes=2):
     """
     Utilised the function https://docs.opensafely.org/ehrql/reference/language/#DateEventSeries.count_episodes_for_patient
     """
-    # condition_events = (
-    #     events
-    #     .where(events.snomedct_code.is_in(codelist))
-    #     .where(events.date.is_on_or_between(index_date - months(lookback_months),index_date,)
-    #     )
-    # )
     condition_events = (
         events
         .where(events.snomedct_code.is_in(codelist))
-        .where(events.date.is_on_or_between(index_date - months(lookback_months), index_date))
+        .where(events.date.is_on_or_between(window_start, window_end))
         .date
     )
 
     episode_count = (condition_events.count_episodes_for_patient(weeks(gap_weeks)))
 
     return episode_count >= min_episodes
-
 
 # Function to count number of coded events within a specified time window
 def count_past_events(index_date, selected_events, codelist, num_months):
@@ -98,8 +111,9 @@ def has_event_count(events, codelist):
     # flag = filtered.exists_for_patient()
     # count_event = filtered.count_for_patient()
     count_consultation = filtered.consultation_id.count_distinct_for_patient() # https://docs.opensafely.org/ehrql/reference/language/#BoolEventSeries.count_distinct_for_patient
-    count_episode = filtered.date.count_episodes_for_patient(days(1))
-    return count_consultation,count_episode
+    # count_episode = filtered.date.count_episodes_for_patient(days(1))
+    count_dates = filtered.date.count_distinct_for_patient()
+    return count_consultation,count_dates
 
 # Function to get events linked to a specified codelist
 def select_events_from_codelist(event_frame, codelist):

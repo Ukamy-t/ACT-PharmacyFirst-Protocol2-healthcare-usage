@@ -26,13 +26,15 @@ index_date = INTERVAL.end_date
 """
 Monthly patient-level denominator + numerator dataset
 Patient table key fields:
-- Patient identifiers: patient_id, month (start_date, index_date), registration_status, alive_status, practice_id, region, 
+- Patient identifiers: patient_id, month (start_date, index_date), registration_status, alive_status, 
 - Demographics: age, sex, ethnicity, IMD
-- Appointment count: scheduled; seen.
-- PF consultation count for each condition
-- GP consultation count for each condition
-- GP condition patient-date counts by consultation mode (f2f, online, telephone, other)
+- Practice info: practice_id, STP, region
+- PF consultation count
+- GP consultation count (conditions: 7 PF conditions + a control condition)
+- GP consultation patient-date counts by consultation mode (f2f, online, telephone, e-consultation, other)
 - Eligibility/clinical characteristics flag (True/False)
+- A&E attendance
+- Appointment count: scheduled; seen.
 
 Eligibility/clinical characteristics flag for study population denominator:
 - include_patient_otitis_media
@@ -60,12 +62,9 @@ A&E variables:
 Appointment variables:
 - total number of appointments that were scheduled to date in month (based on start_date)
 - total number of appointments that were seen in month (based on seen_date)
-  
+       
 Notes: 
-- may have patients not eligible but PF consultation
-- should do consistent criteria for registration_status for practice dataset
 - run for every month - specify parameters in .yaml
-- include detailed flags for each condition's inclusion and exclusion (may be good to have)
 """
 
 ########################################################
@@ -83,7 +82,6 @@ age = patients.age_on(index_date)
 # Define population
 # base_population = patients.exists_for_patient()
 age_valid = (patients.age_on(index_date) <= 120) # "Exclude any patients over 120 years old as the date of birth is most likely to be missing"
-
 base_population = alive & registered_start & registered_index & age_valid 
 # dataset.define_population(base_population) # include all patients or those alive and registered
 dataset.define_population(patients.exists_for_patient())
@@ -114,7 +112,7 @@ Outputs:
 - pf_consultation_general: consultation count where their clinical events have any of the three general PF codes
 - pf_consultation_general_butno_condition: consultation count where their clinical events have any of the three general PF codes BUT no PF condition codes
 - numerator_pf_consultation_{name}: number of PF consultations for a specific PF condition
-- numerator_pf_episode_{name}: number of PF consultation episodes for a specific PF condition (consultations occurring within the same day are grouped into a single episode)
+- numerator_pf_date_{name}: number of PF consultation dates for a specific PF condition
 '''
 
 selected_events = select_events_between(clinical_events, start_date, index_date)
@@ -155,10 +153,10 @@ dataset.pf_consultation_general_butno_condition = (
 )
 
 for name, codes in pf_conditions_pf_codes.items():
-    # count consultations and episodes (consultations occurring within the same day are grouped into a single episode)
-    count_pf_consultation, count_pf_episode = has_event_count(selected_pf_id_events, codes)
+    # count consultations and consultation dates
+    count_pf_consultation, count_pf_date = has_event_count(selected_pf_id_events, codes)
     setattr(dataset, f"numerator_pf_consultation_{name}", count_pf_consultation)
-    setattr(dataset, f"numerator_pf_episode_{name}", count_pf_episode)
+    setattr(dataset, f"numerator_pf_date_{name}", count_pf_date)
 
 ########################################################
 '''
@@ -170,12 +168,11 @@ Key logic:
 1. 'gp_events_clean' is derived by excluding all events belonging to consultations in 'pf_ids'. 
 - This ensures that GP consultation counts do not overlap with PF consultation counts.
 2. Identify PF-related conditions in managed in GP using the condition-specific SNOMED codelists (e.g. UTI, sinusitis)
-3. Consultations are counted using distinct consultation IDs per patient. 
-- For testing purpose, episodes are defined by grouping events occurring within a 1-day window, so multiple events on the same day are treated as a single episode.
+3. Consultations are counted using distinct consultation IDs per patient and consultation dates
 
 Outputs:
 - numerator_gp_consultation_{name}: number of GP consultations for a specific PF condition
-- numerator_gp_episode_{name}: number of GP consultation episodes for a specific PF condition (consultations occurring within the same day are grouped into a single episode)
+- numerator_gp_date_{name}: number of GP consultation dates for a specific PF condition
 '''
 
 gp_events_clean = selected_events.where(
@@ -203,9 +200,9 @@ all_conditions_gp_codes = {
 
 # for name, codes in pf_conditions_gp_codes.items():
 for name, codes in all_conditions_gp_codes.items():
-    count_gp_consultation, count_gp_episode = has_event_count(gp_events_clean, codes)
+    count_gp_consultation, count_gp_date = has_event_count(gp_events_clean, codes)
     setattr(dataset, f"numerator_gp_consultation_{name}", count_gp_consultation)
-    setattr(dataset, f"numerator_gp_episode_{name}", count_gp_episode)
+    setattr(dataset, f"numerator_gp_date_{name}", count_gp_date)
 
 ########################################################
 '''
@@ -251,6 +248,7 @@ Outputs:
 - gp_pf_patient_date_f2f
 - gp_pf_patient_date_online
 - gp_pf_patient_date_telephone
+- gp_pf_patient_date_econsultation
 - gp_pf_patient_date_othermode
 - gp_pf_patient_date_total
 - gp_pf_patient_date_mode_sum
@@ -331,6 +329,11 @@ gp_telephone_dates = select_events_from_codelist(
     codelists.gp_codelist_consultation_telephone
 ).date
 
+gp_econsultation_dates = select_events_from_codelist(
+    gp_events_clean,
+    codelists.gp_codelist_consultation_econsultation
+).date
+
 gp_pf_f2f = gp_pf_condition_events.where(
     gp_pf_condition_events.date.is_in(gp_f2f_dates)
     )
@@ -343,15 +346,23 @@ gp_pf_telephone = gp_pf_condition_events.where(
     & ~gp_pf_condition_events.date.is_in(gp_online_dates)
     & gp_pf_condition_events.date.is_in(gp_telephone_dates)
     )
+gp_pf_econsultation = gp_pf_condition_events.where(
+    ~gp_pf_condition_events.date.is_in(gp_f2f_dates)
+    & ~gp_pf_condition_events.date.is_in(gp_online_dates)
+    & ~gp_pf_condition_events.date.is_in(gp_telephone_dates)
+    & gp_pf_condition_events.date.is_in(gp_econsultation_dates)
+    )
 gp_pf_other = gp_pf_condition_events.where(
     ~gp_pf_condition_events.date.is_in(gp_f2f_dates)
     & ~gp_pf_condition_events.date.is_in(gp_online_dates)
     & ~gp_pf_condition_events.date.is_in(gp_telephone_dates)
+    & ~gp_pf_condition_events.date.is_in(gp_econsultation_dates)
     )
 
 dataset.gp_pf_patient_date_f2f = (gp_pf_f2f.date.count_distinct_for_patient())
 dataset.gp_pf_patient_date_online = (gp_pf_online.date.count_distinct_for_patient())
 dataset.gp_pf_patient_date_telephone = (gp_pf_telephone.date.count_distinct_for_patient())
+dataset.gp_pf_patient_date_econsultation = (gp_pf_econsultation.date.count_distinct_for_patient())
 dataset.gp_pf_patient_date_othermode = (gp_pf_other.date.count_distinct_for_patient())
 
 # Validation variables
@@ -363,114 +374,8 @@ dataset.gp_pf_patient_date_mode_sum = (
     dataset.gp_pf_patient_date_f2f
     + dataset.gp_pf_patient_date_online
     + dataset.gp_pf_patient_date_telephone
+    + dataset.gp_pf_patient_date_econsultation
     + dataset.gp_pf_patient_date_othermode
-)
-
-########################################################
-'''
-This section repeats the above logic to count GP consultation patient-dates by consultation mode,
-but only for control conditions rather than PF-conditions
-
-Outputs:
-- gp_control_patient_date_f2f
-- gp_control_patient_date_online
-- gp_control_patient_date_telephone
-- gp_control_patient_date_othermode
-- gp_control_patient_date_total
-- gp_control_patient_date_mode_sum
-'''
-
-control_conditions_gp_code_set = []
-for codes in control_conditions_gp_codes.values():
-    control_conditions_gp_code_set += codes
-
-gp_control_condition_events = gp_events_clean.where(
-    gp_events_clean.snomedct_code.is_in(control_conditions_gp_code_set)
-)
-
-######### Version May 2026 #########
-# gp_control_condition_ids = gp_control_condition_events.consultation_id
-# gp_control_condition_all_events = select_events_by_consultation_id(
-#     gp_events_clean,
-#     gp_control_condition_ids
-# )
-# gp_control_f2f_type_events = select_events_from_codelist(
-#     gp_control_condition_all_events,
-#     codelists.gp_codelist_consultation_f2f
-# )
-# gp_control_online_type_events = select_events_from_codelist(
-#     gp_control_condition_all_events,
-#     codelists.gp_codelist_consultation_online
-# )
-# gp_control_telephone_type_events = select_events_from_codelist(
-#     gp_control_condition_all_events,
-#     codelists.gp_codelist_consultation_telephone
-# )
-
-# gp_control_f2f_ids = gp_control_f2f_type_events.consultation_id
-# gp_control_online_ids = gp_control_online_type_events.consultation_id
-# gp_control_telephone_ids = gp_control_telephone_type_events.consultation_id
-
-# dataset.gp_control_consultation_f2f = (
-#     gp_control_f2f_ids.count_distinct_for_patient()
-# )
-
-# dataset.gp_control_consultation_online = (
-#     gp_control_online_type_events.where(
-#         ~gp_control_online_type_events.consultation_id.is_in(gp_control_f2f_ids)
-#     ).consultation_id.count_distinct_for_patient()
-# )
-
-# dataset.gp_control_consultation_telephone = (
-#     gp_control_telephone_type_events.where(
-#         ~gp_control_telephone_type_events.consultation_id.is_in(gp_control_f2f_ids)
-#         & ~gp_control_telephone_type_events.consultation_id.is_in(gp_control_online_ids)
-#     ).consultation_id.count_distinct_for_patient()
-# )
-
-# dataset.gp_control_consultation_othermode = (
-#     gp_control_condition_all_events.where(
-#         ~gp_control_condition_all_events.consultation_id.is_in(gp_control_f2f_ids)
-#         & ~gp_control_condition_all_events.consultation_id.is_in(gp_control_online_ids)
-#         & ~gp_control_condition_all_events.consultation_id.is_in(gp_control_telephone_ids)
-#     ).consultation_id.count_distinct_for_patient()
-# )
-
-######### Version June 2026: patient-date level #########
-# Apply hierarchy at patient-date level: f2f > online > telephone > other
-gp_control_f2f = gp_control_condition_events.where(
-    gp_control_condition_events.date.is_in(gp_f2f_dates)
-)
-
-gp_control_online = gp_control_condition_events.where(
-    ~gp_control_condition_events.date.is_in(gp_f2f_dates)
-    & gp_control_condition_events.date.is_in(gp_online_dates)
-)
-
-gp_control_telephone = gp_control_condition_events.where(
-    ~gp_control_condition_events.date.is_in(gp_f2f_dates)
-    & ~gp_control_condition_events.date.is_in(gp_online_dates)
-    & gp_control_condition_events.date.is_in(gp_telephone_dates)
-)
-
-gp_control_other = gp_control_condition_events.where(
-    ~gp_control_condition_events.date.is_in(gp_f2f_dates)
-    & ~gp_control_condition_events.date.is_in(gp_online_dates)
-    & ~gp_control_condition_events.date.is_in(gp_telephone_dates)
-)
-
-dataset.gp_control_patient_date_f2f = (gp_control_f2f.date.count_distinct_for_patient())
-dataset.gp_control_patient_date_online = (gp_control_online.date.count_distinct_for_patient())
-dataset.gp_control_patient_date_telephone = (gp_control_telephone.date.count_distinct_for_patient())
-dataset.gp_control_patient_date_othermode = (gp_control_other.date.count_distinct_for_patient())
-
-dataset.gp_control_patient_date_total = (gp_control_condition_events.date.count_distinct_for_patient())
-
-dataset.gp_control_patient_date_mode_sum = (
-    dataset.gp_control_patient_date_f2f
-    + dataset.gp_control_patient_date_online
-    + dataset.gp_control_patient_date_telephone
-    + dataset.gp_control_patient_date_othermode
 )
 
 ########################################################
@@ -537,15 +442,24 @@ for name, codes in all_conditions_gp_codes.items():
         & condition_events.date.is_in(gp_telephone_dates)
     )
 
+    condition_econsultation = condition_events.where(
+        ~condition_events.date.is_in(gp_f2f_dates)
+        & ~condition_events.date.is_in(gp_online_dates)
+        & ~condition_events.date.is_in(gp_telephone_dates)
+        & condition_events.date.is_in(gp_econsultation_dates)
+    )
+
     condition_other = condition_events.where(
         ~condition_events.date.is_in(gp_f2f_dates)
         & ~condition_events.date.is_in(gp_online_dates)
         & ~condition_events.date.is_in(gp_telephone_dates)
+        & ~condition_events.date.is_in(gp_econsultation_dates)
     )
 
     setattr(dataset,f"gp_{name}_patient_date_f2f",condition_f2f.date.count_distinct_for_patient(),)
     setattr(dataset,f"gp_{name}_patient_date_online",condition_online.date.count_distinct_for_patient(),)
     setattr(dataset,f"gp_{name}_patient_date_telephone",condition_telephone.date.count_distinct_for_patient(),)
+    setattr(dataset,f"gp_{name}_patient_date_econsultation",condition_econsultation.date.count_distinct_for_patient(),)
     setattr(dataset,f"gp_{name}_patient_date_othermode",condition_other.date.count_distinct_for_patient(),)
 
     setattr(dataset,f"gp_{name}_patient_date_total",condition_events.date.count_distinct_for_patient(),)
@@ -555,6 +469,7 @@ for name, codes in all_conditions_gp_codes.items():
         getattr(dataset, f"gp_{name}_patient_date_f2f")
         + getattr(dataset, f"gp_{name}_patient_date_online")
         + getattr(dataset, f"gp_{name}_patient_date_telephone")
+        + getattr(dataset, f"gp_{name}_patient_date_econsultation")
         + getattr(dataset, f"gp_{name}_patient_date_othermode"),
     )
 
@@ -614,32 +529,72 @@ dataset.pregnant = case(
 pregnant_this_month = (dataset.pregnant.is_in(("P-E", "P-EDD", "P")) & (age >= 12))
 dataset.pregnant_this_month = pregnant_this_month
 
-# bullous_impetigo during the specific month
-bullous_impetigo_this_month = check_code_in_time_window(start_date,index_date,clinical_events,codelists.gp_snomed_codelist_bullous_impetigo)
-dataset.bullous_impetigo_this_month = bullous_impetigo_this_month
+# Anchor date for impetigo exclusion
+# anchor is the day before the monthly interval start
+impetigo_exclusion_anchor_date = start_date
 
-# recurrent_impetigo: (defined as 2 or more episodes in the same year) 
-# an episode is defined as a 4 week period, so any codes within this time are considered to be part of the same episode.
-# >= two 4-week-separated episodes
-recurrent_impetigo_this_year = check_recurrent_status(index_date, clinical_events, codelists.gp_snomed_codelist_impetigo, 
-                                                      lookback_months=12, gap_weeks=4, min_episodes=2)
-dataset.recurrent_impetigo_this_year = recurrent_impetigo_this_year
+# bullous_impetigo in one month
+# When start_date = 2025-10-01, impetigo_exclusion_anchor_date = 2025-10-01
+# the lookback window is [2025-09-01, 2025-09-30]
+# bullous_impetigo_this_month = check_code_in_time_window(start_date,index_date,clinical_events,codelists.gp_snomed_codelist_bullous_impetigo)
+bullous_impetigo_last_month = check_code_in_time_window(
+    impetigo_exclusion_anchor_date-months(1),
+    impetigo_exclusion_anchor_date-days(1),
+    clinical_events,
+    codelists.gp_snomed_codelist_bullous_impetigo)
+dataset.bullous_impetigo_last_month = bullous_impetigo_last_month
+
+# recurrent_impetigo: (defined as 2 or more episodes in one year) 
+# episodes are distinguished using 4 weeks gap, so any codes within 4 weeks are considered to be part of the same episode.
+# For recurrent eligibility criteria, 
+# we use the start of the study month as the anchor date and exclude the study month from the lookback window. 
+# Therefore, criteria defined over N months are implemented as N-1 months before the anchor date, 
+# ending on the day before the study month starts.
+recurrent_impetigo_window_start = impetigo_exclusion_anchor_date - months(11)
+recurrent_impetigo_window_end = impetigo_exclusion_anchor_date - days(1)
+recurrent_impetigo_12m = check_recurrent_status(
+    recurrent_impetigo_window_start, 
+    recurrent_impetigo_window_end,
+    clinical_events, 
+    codelists.gp_snomed_codelist_impetigo,
+    gap_weeks=4, 
+    min_episodes=2)
+dataset.recurrent_impetigo_12m = recurrent_impetigo_12m
+
+# Anchor date for uti exclusion
+# anchor is the day before the monthly interval start
+uti_exclusion_anchor_date = start_date
 
 # catheter_status: excluding patients who clearly have a catheter, and for following 12 months after code is included
-catheter_status = check_code_in_time_window(index_date - months(12),index_date,clinical_events,codelists.gp_snomed_codelist_urinary_catheter)
-dataset.catheter_status = catheter_status
+catheter_12m = check_code_in_time_window(
+    uti_exclusion_anchor_date - months(11),
+    uti_exclusion_anchor_date - days(1),
+    clinical_events,
+    codelists.gp_snomed_codelist_urinary_catheter,
+)
+dataset.catheter_12m = catheter_12m
 
 # recurrent_uti: (2 episodes in last 6 months, or 3 episodes in last 12 months) an episode is defined as a 4 week period, so any codes within this time are considered to be part of the same episode.
-# recurrent_uti_6m = (age < 0)
-# recurrent_uti_12m = (age < 0)
+# To avoid counting consultations in the study month itself, 
+# criteria defined over N months are implemented as N-1 months before the anchor date, 
+# ending on the day before the study month starts.
+recurrent_uti_6m_window_start = uti_exclusion_anchor_date - months(5)
+recurrent_uti_12m_window_start = uti_exclusion_anchor_date - months(11)
+recurrent_uti_window_end = uti_exclusion_anchor_date - days(1)
 recurrent_uti_6m = check_recurrent_status(
-    index_date, clinical_events, codelists.gp_snomed_codelist_uti,
-    lookback_months=6, gap_weeks=4,min_episodes=2
-)
+    recurrent_uti_6m_window_start, 
+    recurrent_uti_window_end,
+    clinical_events, 
+    codelists.gp_snomed_codelist_uti,
+    gap_weeks=4, 
+    min_episodes=2)
 recurrent_uti_12m = check_recurrent_status(
-    index_date, clinical_events, codelists.gp_snomed_codelist_uti,
-    lookback_months=12, gap_weeks=4, min_episodes=3
-)
+    recurrent_uti_12m_window_start, 
+    recurrent_uti_window_end,
+    clinical_events, 
+    codelists.gp_snomed_codelist_uti,
+    gap_weeks=4, 
+    min_episodes=3)
 recurrent_uti = recurrent_uti_6m | recurrent_uti_12m
 dataset.recurrent_uti_6m = recurrent_uti_6m
 dataset.recurrent_uti_12m = recurrent_uti_12m
@@ -702,7 +657,7 @@ dataset.include_patient_shingles = include_patient_shingles
 # - - recurrent impetigo (defined as 2 or more episodes in the same year), 
 # - - pregnant female under 16 years
 impetigo_age_eligible = (age >= 1)
-impetigo_exclusion = (bullous_impetigo_this_month | recurrent_impetigo_this_year | (pregnant_this_month & (age < 16) & female))
+impetigo_exclusion = (bullous_impetigo_last_month | recurrent_impetigo_12m | (pregnant_this_month & (age < 16) & female))
 include_patient_impetigo = (impetigo_age_eligible & ~impetigo_exclusion)
 dataset.include_patient_impetigo = include_patient_impetigo
 
@@ -713,7 +668,7 @@ dataset.include_patient_impetigo = include_patient_impetigo
 # - - urinary catheter
 # - - recurrent UTI: 2 episodes in last 6 months, or 3 episodes in last 12 months
 uuti_eligible = (age >= 16) & (age <= 64) & female
-uuti_exclusion = (pregnant_this_month | catheter_status | recurrent_uti)
+uuti_exclusion = (pregnant_this_month | catheter_12m | recurrent_uti)
 include_patient_uuti = (uuti_eligible & ~uuti_exclusion)
 dataset.include_patient_uuti = include_patient_uuti
 

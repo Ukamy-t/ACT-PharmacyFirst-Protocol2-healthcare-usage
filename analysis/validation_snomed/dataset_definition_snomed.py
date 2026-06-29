@@ -101,8 +101,12 @@ dataset.pregnant = case(
     # recent pregnancy code
     when(dataset.pregnancy_code.is_not_null()).then("P"),
     otherwise="0",)
+# pregnant_this_month = dataset.pregnant.is_in(("P-E", "P-EDD", "P"))
+# Age <= 11: pregnancy flags are considered too unreliable and are not counted as pregnant.
 pregnant_this_month = (dataset.pregnant.is_in(("P-E", "P-EDD", "P")) & (age >= 12))
 dataset.pregnant_this_month = pregnant_this_month
+pregnant_this_month_raw = dataset.pregnant.is_in(("P-E", "P-EDD", "P"))
+dataset.pregnant_this_month_raw = pregnant_this_month_raw
 
 # Anchor date for impetigo exclusion
 # anchor is the day before the monthly interval start
@@ -210,7 +214,8 @@ dataset.include_patient_insect_bites = include_patient_insect_bites
 # - inclusion: age >= 18
 # - exclusion: pregnant female
 age_eligible_shingles = (age >= 18)
-exclusion_shingles = pregnant_this_month & (female)
+# exclusion_shingles = pregnant_this_month & (female)
+exclusion_shingles = pregnant_this_month_raw & female
 include_patient_shingles = (age_eligible_shingles & ~exclusion_shingles)
 dataset.include_patient_shingles = include_patient_shingles
 

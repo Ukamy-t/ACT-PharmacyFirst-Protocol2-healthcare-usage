@@ -630,32 +630,72 @@ dataset.pregnant = case(
 pregnant_this_month = (dataset.pregnant.is_in(("P-E", "P-EDD", "P")) & (age >= 12))
 dataset.pregnant_this_month = pregnant_this_month
 
-# bullous_impetigo during the specific month
-bullous_impetigo_this_month = check_code_in_time_window(start_date,index_date,clinical_events,codelists.gp_snomed_codelist_bullous_impetigo)
-dataset.bullous_impetigo_this_month = bullous_impetigo_this_month
+# Anchor date for impetigo exclusion
+# anchor is the day before the monthly interval start
+impetigo_exclusion_anchor_date = start_date
 
-# recurrent_impetigo: (defined as 2 or more episodes in the same year) 
-# an episode is defined as a 4 week period, so any codes within this time are considered to be part of the same episode.
-# >= two 4-week-separated episodes
-recurrent_impetigo_this_year = check_recurrent_status(index_date, clinical_events, codelists.gp_snomed_codelist_impetigo, 
-                                                      lookback_months=12, gap_weeks=4, min_episodes=2)
-dataset.recurrent_impetigo_this_year = recurrent_impetigo_this_year
+# bullous_impetigo in one month
+# When start_date = 2025-10-01, impetigo_exclusion_anchor_date = 2025-10-01
+# the lookback window is [2025-09-01, 2025-09-30]
+# bullous_impetigo_this_month = check_code_in_time_window(start_date,index_date,clinical_events,codelists.gp_snomed_codelist_bullous_impetigo)
+bullous_impetigo_last_month = check_code_in_time_window(
+    impetigo_exclusion_anchor_date-months(1),
+    impetigo_exclusion_anchor_date-days(1),
+    clinical_events,
+    codelists.gp_snomed_codelist_bullous_impetigo)
+dataset.bullous_impetigo_last_month = bullous_impetigo_last_month
+
+# recurrent_impetigo: (defined as 2 or more episodes in one year) 
+# episodes are distinguished using 4 weeks gap, so any codes within 4 weeks are considered to be part of the same episode.
+# For recurrent eligibility criteria, 
+# we use the start of the study month as the anchor date and exclude the study month from the lookback window. 
+# Therefore, criteria defined over N months are implemented as N-1 months before the anchor date, 
+# ending on the day before the study month starts.
+recurrent_impetigo_window_start = impetigo_exclusion_anchor_date - months(11)
+recurrent_impetigo_window_end = impetigo_exclusion_anchor_date - days(1)
+recurrent_impetigo_12m = check_recurrent_status(
+    recurrent_impetigo_window_start, 
+    recurrent_impetigo_window_end,
+    clinical_events, 
+    codelists.gp_snomed_codelist_impetigo,
+    gap_weeks=4, 
+    min_episodes=2)
+dataset.recurrent_impetigo_12m = recurrent_impetigo_12m
+
+# Anchor date for uti exclusion
+# anchor is the day before the monthly interval start
+uti_exclusion_anchor_date = start_date
 
 # catheter_status: excluding patients who clearly have a catheter, and for following 12 months after code is included
-catheter_status = check_code_in_time_window(index_date - months(12),index_date,clinical_events,codelists.gp_snomed_codelist_urinary_catheter)
-dataset.catheter_status = catheter_status
+catheter_12m = check_code_in_time_window(
+    uti_exclusion_anchor_date - months(11),
+    uti_exclusion_anchor_date - days(1),
+    clinical_events,
+    codelists.gp_snomed_codelist_urinary_catheter,
+)
+dataset.catheter_12m = catheter_12m
 
 # recurrent_uti: (2 episodes in last 6 months, or 3 episodes in last 12 months) an episode is defined as a 4 week period, so any codes within this time are considered to be part of the same episode.
-# recurrent_uti_6m = (age < 0)
-# recurrent_uti_12m = (age < 0)
+# To avoid counting consultations in the study month itself, 
+# criteria defined over N months are implemented as N-1 months before the anchor date, 
+# ending on the day before the study month starts.
+recurrent_uti_6m_window_start = uti_exclusion_anchor_date - months(5)
+recurrent_uti_12m_window_start = uti_exclusion_anchor_date - months(11)
+recurrent_uti_window_end = uti_exclusion_anchor_date - days(1)
 recurrent_uti_6m = check_recurrent_status(
-    index_date, clinical_events, codelists.gp_snomed_codelist_uti,
-    lookback_months=6, gap_weeks=4,min_episodes=2
-)
+    recurrent_uti_6m_window_start, 
+    recurrent_uti_window_end,
+    clinical_events, 
+    codelists.gp_snomed_codelist_uti,
+    gap_weeks=4, 
+    min_episodes=2)
 recurrent_uti_12m = check_recurrent_status(
-    index_date, clinical_events, codelists.gp_snomed_codelist_uti,
-    lookback_months=12, gap_weeks=4, min_episodes=3
-)
+    recurrent_uti_12m_window_start, 
+    recurrent_uti_window_end,
+    clinical_events, 
+    codelists.gp_snomed_codelist_uti,
+    gap_weeks=4, 
+    min_episodes=3)
 recurrent_uti = recurrent_uti_6m | recurrent_uti_12m
 dataset.recurrent_uti_6m = recurrent_uti_6m
 dataset.recurrent_uti_12m = recurrent_uti_12m
@@ -718,7 +758,7 @@ dataset.include_patient_shingles = include_patient_shingles
 # - - recurrent impetigo (defined as 2 or more episodes in the same year), 
 # - - pregnant female under 16 years
 impetigo_age_eligible = (age >= 1)
-impetigo_exclusion = (bullous_impetigo_this_month | recurrent_impetigo_this_year | (pregnant_this_month & (age < 16) & female))
+impetigo_exclusion = (bullous_impetigo_last_month | recurrent_impetigo_12m | (pregnant_this_month & (age < 16) & female))
 include_patient_impetigo = (impetigo_age_eligible & ~impetigo_exclusion)
 dataset.include_patient_impetigo = include_patient_impetigo
 
@@ -729,7 +769,7 @@ dataset.include_patient_impetigo = include_patient_impetigo
 # - - urinary catheter
 # - - recurrent UTI: 2 episodes in last 6 months, or 3 episodes in last 12 months
 uuti_eligible = (age >= 16) & (age <= 64) & female
-uuti_exclusion = (pregnant_this_month | catheter_status | recurrent_uti)
+uuti_exclusion = (pregnant_this_month | catheter_12m | recurrent_uti)
 include_patient_uuti = (uuti_eligible & ~uuti_exclusion)
 dataset.include_patient_uuti = include_patient_uuti
 

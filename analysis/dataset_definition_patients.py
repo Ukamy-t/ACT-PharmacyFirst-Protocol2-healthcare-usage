@@ -183,6 +183,7 @@ pf_conditions_gp_codes = {
     "uti": codelists.gp_snomed_codelist_uti,
     "sinusitis": codelists.gp_snomed_codelist_sinusitis,
     "insectbite": codelists.gp_snomed_codelist_insect_bites,
+    "insectbite_strict": codelists.gp_snomed_codelist_insect_bites,
     "otitismedia": codelists.gp_snomed_codelist_otitis_media,
     "sorethroat": codelists.gp_snomed_codelist_sore_throat,
     "shingles": codelists.gp_snomed_codelist_shingles,

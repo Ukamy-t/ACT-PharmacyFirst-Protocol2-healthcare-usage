@@ -114,32 +114,40 @@ actions:
   #     moderately_sensitive:
   #       measure_tables: output/patient_measures_eligibility_validation.csv
   
-  generate_patient_measures_eligibility_v1:
-    run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation_v1.py --dummy-tables dummy-folder --output output/patient_measures_eligibility_validation_v1.csv
-    outputs:
-      moderately_sensitive:
-        measure_tables: output/patient_measures_eligibility_validation_v1.csv
+  # generate_patient_measures_eligibility_v1:
+  #   run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation_v1.py --dummy-tables dummy-folder --output output/patient_measures_eligibility_validation_v1.csv
+  #   outputs:
+  #     moderately_sensitive:
+  #       measure_tables: output/patient_measures_eligibility_validation_v1.csv
   
-  generate_patient_measures_eligibility_v2:
-    run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation_v2.py --dummy-tables dummy-folder --output output/patient_measures_eligibility_validation_v2.csv
+  # generate_patient_measures_eligibility_v2:
+  #   run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation_v2.py --dummy-tables dummy-folder --output output/patient_measures_eligibility_validation_v2.csv
+  #   outputs:
+  #     moderately_sensitive:
+  #       measure_tables: output/patient_measures_eligibility_validation_v2.csv
+
+  # generate_patient_measures_eligibility_v3:
+  #   run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation_v3.py --dummy-tables dummy-folder --output output/patient_measures_eligibility_validation_v3.csv
+  #   outputs:
+  #     moderately_sensitive:
+  #       measure_tables: output/patient_measures_eligibility_validation_v3.csv
+
+  generate_patient_measures_eligibility_final:
+    run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation_final.py --dummy-tables dummy-folder --output output/patient_measures_eligibility_validation_final.csv
     outputs:
       moderately_sensitive:
-        measure_tables: output/patient_measures_eligibility_validation_v2.csv
-
-  generate_patient_measures_eligibility_v3:
-    run: ehrql:v1 generate-measures analysis/validation/measures_patient_eligibility_validation_v3.py --dummy-tables dummy-folder --output output/patient_measures_eligibility_validation_v3.csv
-    outputs:
-      moderately_sensitive:
-        measure_tables: output/patient_measures_eligibility_validation_v3.csv
-
+        measure_tables: output/patient_measures_eligibility_validation_final.csv
+  
   process_patient_measures_eligibility:
-    run: python:v2 analysis/validation/process_measure_eligibility_validation.py --output output/patient_measures_eligibility_validation_ordered_v1.csv
-    needs: [generate_patient_measures_eligibility_v1, generate_patient_measures_eligibility_v2, generate_patient_measures_eligibility_v3]
+    run: python:v2 analysis/validation/process_measure_eligibility_validation.py --output output/patient_measures_eligibility_validation_ordered_final.csv
+    # needs: [generate_patient_measures_eligibility_v1, generate_patient_measures_eligibility_v2, generate_patient_measures_eligibility_v3]
+    needs: [generate_patient_measures_eligibility_final]
     outputs:
       moderately_sensitive:
-        measure_table1: output/patient_measures_eligibility_validation_ordered_v1.csv
-        measure_table2: output/patient_measures_eligibility_validation_ordered_v2.csv
-        measure_table3: output/patient_measures_eligibility_validation_ordered_v3.csv
+        measure_table: output/patient_measures_eligibility_validation_ordered_final.csv
+        # measure_table1: output/patient_measures_eligibility_validation_ordered_v1.csv
+        # measure_table2: output/patient_measures_eligibility_validation_ordered_v2.csv
+        # measure_table3: output/patient_measures_eligibility_validation_ordered_v3.csv
 
   # Measures for checking consultation count variables
   # # local testing with dummy tables
@@ -174,6 +182,11 @@ actions:
         release_pf_consultation_chart: output/patient_measures_pf_consultations_by_condition_release.png
         release_gp_consultation_chart: output/patient_measures_gp_consultation_by_condition_release.png
 
+  generate_patient_measures_consultation_events:
+    run: ehrql:v1 generate-measures analysis/validation/measures_patient_consultation_events.py --output output/patient_measures_consultation_events.csv
+    outputs:
+      moderately_sensitive:
+        measure_tables: output/patient_measures_consultation_events.csv
 
   # Measures for checking consultation mode variables
   # # local testing with dummy tables

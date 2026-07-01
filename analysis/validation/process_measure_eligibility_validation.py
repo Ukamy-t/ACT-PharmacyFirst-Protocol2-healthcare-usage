@@ -3,15 +3,17 @@ import pandas as pd
 
 
 input_files = {
-    "v1": "output/patient_measures_eligibility_validation_v1.csv",
-    "v2": "output/patient_measures_eligibility_validation_v2.csv",
-    "v3": "output/patient_measures_eligibility_validation_v3.csv",
+    # "v1": "output/patient_measures_eligibility_validation_v1.csv",
+    # "v2": "output/patient_measures_eligibility_validation_v2.csv",
+    # "v3": "output/patient_measures_eligibility_validation_v3.csv",
+    "final": "output/patient_measures_eligibility_validation_final.csv",
 }
 
 output_files = {
-    "v1": "output/patient_measures_eligibility_validation_ordered_v1.csv",
-    "v2": "output/patient_measures_eligibility_validation_ordered_v2.csv",
-    "v3": "output/patient_measures_eligibility_validation_ordered_v3.csv",
+    # "v1": "output/patient_measures_eligibility_validation_ordered_v1.csv",
+    # "v2": "output/patient_measures_eligibility_validation_ordered_v2.csv",
+    # "v3": "output/patient_measures_eligibility_validation_ordered_v3.csv",
+    "final": "output/patient_measures_eligibility_validation_ordered_final.csv",
 }
 
 

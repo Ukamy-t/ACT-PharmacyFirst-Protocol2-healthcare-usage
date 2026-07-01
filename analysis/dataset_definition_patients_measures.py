@@ -552,9 +552,9 @@ dataset.bullous_impetigo_last_month = bullous_impetigo_last_month
 # For recurrent eligibility criteria, 
 # we use the start of the study month as the anchor date and exclude the study month from the lookback window. 
 # Therefore, criteria defined over N months are implemented as N-1 months before the anchor date, 
-# ending on the day before the study month starts.
+# ending on two weeks before the study month starts.
 recurrent_impetigo_window_start = impetigo_exclusion_anchor_date - months(11)
-recurrent_impetigo_window_end = impetigo_exclusion_anchor_date - days(1)
+recurrent_impetigo_window_end = impetigo_exclusion_anchor_date - days(15)
 recurrent_impetigo_12m = check_recurrent_status(
     recurrent_impetigo_window_start, 
     recurrent_impetigo_window_end,
@@ -580,10 +580,10 @@ dataset.catheter_12m = catheter_12m
 # recurrent_uti: (2 episodes in last 6 months, or 3 episodes in last 12 months) an episode is defined as a 4 week period, so any codes within this time are considered to be part of the same episode.
 # To avoid counting consultations in the study month itself, 
 # criteria defined over N months are implemented as N-1 months before the anchor date, 
-# ending on the day before the study month starts.
+# ending on one week before the study month starts.
 recurrent_uti_6m_window_start = uti_exclusion_anchor_date - months(5)
 recurrent_uti_12m_window_start = uti_exclusion_anchor_date - months(11)
-recurrent_uti_window_end = uti_exclusion_anchor_date - days(1)
+recurrent_uti_window_end = uti_exclusion_anchor_date - days(8)
 recurrent_uti_6m = check_recurrent_status(
     recurrent_uti_6m_window_start, 
     recurrent_uti_window_end,

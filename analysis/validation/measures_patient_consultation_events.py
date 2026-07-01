@@ -17,6 +17,14 @@ measure_base_population = (
     # & (dataset.age <= 120)
 )
 
+measure_base_population_original = (
+    dataset.alive
+    # dataset.sex.is_in(["male","female"])
+    & dataset.registered_start
+    & dataset.registered_index
+    & (dataset.age <= 120)
+)
+
 measures.define_measure(
     name="pf_consultation_general_total",
     numerator=dataset.pf_consultation_general,
@@ -40,6 +48,12 @@ measures.define_measure(
     name="pf_consultation_condition_sum_total",
     numerator=pf_condition_consultation_sum,
     denominator=measure_base_population,
+)
+
+measures.define_measure(
+    name="pf_consultation_condition_sum_total_original",
+    numerator=pf_condition_consultation_sum,
+    denominator=measure_base_population_original,
 )
 
 pf_conditions = [

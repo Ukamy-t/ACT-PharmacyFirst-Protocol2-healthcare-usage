@@ -154,7 +154,8 @@ dataset.pf_consultation_general_butno_condition = (
 
 for name, codes in pf_conditions_pf_codes.items():
     # count consultations and consultation dates
-    count_pf_consultation, count_pf_date = has_event_count(selected_pf_id_events, codes)
+    count_pf_event, count_pf_consultation, count_pf_date = has_event_count(selected_pf_id_events, codes)
+    setattr(dataset, f"numerator_pf_event_{name}", count_pf_event)
     setattr(dataset, f"numerator_pf_consultation_{name}", count_pf_consultation)
     setattr(dataset, f"numerator_pf_date_{name}", count_pf_date)
 
@@ -183,6 +184,7 @@ pf_conditions_gp_codes = {
     "uti": codelists.gp_snomed_codelist_uti,
     "sinusitis": codelists.gp_snomed_codelist_sinusitis,
     "insectbite": codelists.gp_snomed_codelist_insect_bites,
+    "insectbite_strict": codelists.gp_snomed_codelist_insect_bites,
     "otitismedia": codelists.gp_snomed_codelist_otitis_media,
     "sorethroat": codelists.gp_snomed_codelist_sore_throat,
     "shingles": codelists.gp_snomed_codelist_shingles,
@@ -200,7 +202,8 @@ all_conditions_gp_codes = {
 
 # for name, codes in pf_conditions_gp_codes.items():
 for name, codes in all_conditions_gp_codes.items():
-    count_gp_consultation, count_gp_date = has_event_count(gp_events_clean, codes)
+    count_gp_event, count_gp_consultation, count_gp_date = has_event_count(gp_events_clean, codes)
+    setattr(dataset, f"numerator_gp_event_{name}", count_gp_event)
     setattr(dataset, f"numerator_gp_consultation_{name}", count_gp_consultation)
     setattr(dataset, f"numerator_gp_date_{name}", count_gp_date)
 

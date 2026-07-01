@@ -154,7 +154,8 @@ dataset.pf_consultation_general_butno_condition = (
 
 for name, codes in pf_conditions_pf_codes.items():
     # count consultations and consultation dates
-    count_pf_consultation, count_pf_date = has_event_count(selected_pf_id_events, codes)
+    count_pf_event, count_pf_consultation, count_pf_date = has_event_count(selected_pf_id_events, codes)
+    setattr(dataset, f"numerator_pf_event_{name}", count_pf_event)
     setattr(dataset, f"numerator_pf_consultation_{name}", count_pf_consultation)
     setattr(dataset, f"numerator_pf_date_{name}", count_pf_date)
 
@@ -201,7 +202,8 @@ all_conditions_gp_codes = {
 
 # for name, codes in pf_conditions_gp_codes.items():
 for name, codes in all_conditions_gp_codes.items():
-    count_gp_consultation, count_gp_date = has_event_count(gp_events_clean, codes)
+    count_gp_event, count_gp_consultation, count_gp_date = has_event_count(gp_events_clean, codes)
+    setattr(dataset, f"numerator_gp_event_{name}", count_gp_event)
     setattr(dataset, f"numerator_gp_consultation_{name}", count_gp_consultation)
     setattr(dataset, f"numerator_gp_date_{name}", count_gp_date)
 

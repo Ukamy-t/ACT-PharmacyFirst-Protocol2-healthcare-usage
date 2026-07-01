@@ -174,6 +174,11 @@ actions:
         release_pf_consultation_chart: output/patient_measures_pf_consultations_by_condition_release.png
         release_gp_consultation_chart: output/patient_measures_gp_consultation_by_condition_release.png
 
+  generate_patient_measures_consultation_events:
+    run: ehrql:v1 generate-measures analysis/validation/measures_patient_consultation_events.py --output output/patient_measures_consultation_events.csv
+    outputs:
+      moderately_sensitive:
+        measure_tables: output/patient_measures_consultation_events.csv
 
   # Measures for checking consultation mode variables
   # # local testing with dummy tables

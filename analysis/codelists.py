@@ -96,6 +96,23 @@ gp_snomed_codelist_shingles = codelist_from_csv(
     "codelists/pharmacy-first-project-shingles-and-related-conditions-for-pharmacy-first.csv",
     column="code",
 )
+####################################################
+#Snomed codes used for deciding which one to use for insect bites
+
+gp_snomed_codelist_insect_bites_strict = codelist_from_csv(
+    "codelists/pharmacy-first-project-infected-insect-bites-codes-for-pharmacy-first-strict-definition.csv",
+    column="code",
+) 
+
+gp_snomed_codelist_insect_bites_all = codelist_from_csv(
+    "codelists/pharmacy-first-project-all-insect-bites-codes-for-pharmacy-first.csv",
+    column="code",
+) 
+
+gp_snomed_codelist_cellulitis_only = codelist_from_csv(
+    "codelists/pharmacy-first-project-cellulitis-using-snomed-ct-codes.csv",
+    column="code",
+) 
 
 ####################################################
 #Snomed codes used for control conditions by GPs

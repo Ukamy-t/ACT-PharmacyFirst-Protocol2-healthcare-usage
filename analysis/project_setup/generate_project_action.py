@@ -37,7 +37,7 @@ for d in start_dates:
 
 # This will generate one action that combines all monthly csvs
 project["actions"]["combine_monthly_patient_gz"] = {
-    "run": "python:v2 analysis/preprocess_combine_gz.py --output output/dataset_patients_combined.csv.gz",
+    "run": "python:v2 analysis/project_setup/preprocess_combine_gz.py --output output/dataset_patients_combined.csv.gz",
     "needs": monthly_patient_actions,
     "outputs": {
         "highly_sensitive": {

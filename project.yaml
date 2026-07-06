@@ -752,7 +752,7 @@ actions:
 
 # Protocol 2 specific: Action for combining monthly CSVs into one CSV
   combine_monthly_patient_gz:
-    run: python:v2 analysis/project_serup/preprocess_combine_gz.py --output output/dataset_patients_combined.csv.gz
+    run: python:v2 analysis/project_setup/preprocess_combine_gz.py --output output/dataset_patients_combined.csv.gz
     needs:
     - generate_patient_dataset_2022_02_01
     - generate_patient_dataset_2022_03_01

@@ -18,9 +18,3 @@ This document describes the column names and definitions for the file
 - appointments_scheduled: Total number of GP appointments scheduled within the interval across all practices in the region.
 
 - appointments_seen: Total number of GP appointments seen within the interval across all practices in the region.
-
-- pf_consultation_general: Total number of PF consultations (with any of the three PF service codes) recorded within the interval.
-
-- pf_consultation_uti: Total number of PF uncomplicated UTI consultations within the interval.
-
-- populationeligible_uuti: Total number of patients eligible for PF uncomplicated UTI within the interval, based on predefined inclusion/exclusion criteria.

@@ -1,6 +1,6 @@
 import pandas as pd
 
-df = pd.read_csv("output/practice_level_data.csv")
+df = pd.read_csv("output/dataset_practices.csv.gz")
 
 df["interval_start"] = pd.to_datetime(df["interval_start"])
 
@@ -18,10 +18,10 @@ summary = (
         appointments_scheduled=("appointments_scheduled", "sum"),
         appointments_seen=("appointments_seen", "sum"),
         
-        pf_consultation_general=("pf_consultation_general", "sum"),
-        pf_consultation_uti=("pf_consultation_uti", "sum"),
+        # pf_consultation_general=("pf_consultation_general", "sum"),
+        # pf_consultation_uti=("pf_consultation_uti", "sum"),
         
-        populationeligible_uuti=("populationeligible_uuti", "sum"),
+        # populationeligible_uuti=("populationeligible_uuti", "sum"),
     )
     .reset_index()
 )

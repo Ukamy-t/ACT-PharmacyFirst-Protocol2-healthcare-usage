@@ -71,6 +71,8 @@ Notes:
 ########################################################
 # Patient identifiers: alive_status, registration_status
 alive = patients.is_alive_on(index_date) # alive at the end of month
+alive_start = patients.is_alive_on(start_date) # alive at the start of month
+
 # Only include the patient if they were registered for the whole month, 
 # so registered before the month starts and not deregistered or died during the month
 registered_start = practice_registrations.for_patient_on(start_date).exists_for_patient()
@@ -91,6 +93,7 @@ dataset.index_date = case(when(base_population).then(index_date))
 dataset.registered_start = registered_start
 dataset.registered_index = registered_index
 dataset.alive = alive
+dataset.alive_start = alive_start
 dataset.sex = sex
 dataset.age = age
 dataset.date_of_birth = patients.date_of_birth # debug

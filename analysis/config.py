@@ -1,7 +1,7 @@
 from datetime import date
 
 start = date(2022, 2, 1)
-end = date(2026, 1, 31)
+end = date(2026, 3, 31)
 
 def month_range(start, end):
     dates = []

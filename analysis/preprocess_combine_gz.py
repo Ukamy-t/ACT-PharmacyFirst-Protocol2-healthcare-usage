@@ -6,8 +6,8 @@ import argparse
 
 # utilisation: python analysis/preprocess_combine_gz.py
 
-start_dates = month_range(config.start, config.end)
-# start_dates = ["2024-02-01", "2024-03-01"]
+# start_dates = month_range(config.start, config.end)
+start_dates = ["2024-02-01", "2024-03-01"]
 
 dfs = []
 

@@ -223,6 +223,21 @@ actions:
       moderately_sensitive:
         measure_tables: output/patient_measures_consultation_mode_econsultation.csv
 
+  # Validation measure for insect bite codelists
+  generate_measures_insect_bite:
+    run: ehrql:v1 generate-measures analysis/validation_insectbites/measure_insectbites.py --output output/patient_measures_insectbites.csv
+    outputs:
+      moderately_sensitive:
+        measure_tables: output/patient_measures_insectbites.csv
+  
+  process_measures_insect_bite:
+    run: python:v2 analysis/validation_insectbites/process_insectbites.py --output output/patient_measures_insectbites_summary.csv
+    needs: [generate_measures_insect_bite]
+    outputs:
+      moderately_sensitive:
+        measure_tables: output/patient_measures_insectbites_summary.csv
+
+
 #################################################################
   # Dataset definition and measures for checking snomedcode appearance for PF conditions
   # local testing with dummy tables

@@ -186,11 +186,16 @@ pf_conditions_gp_codes = {
     "uti": codelists.gp_snomed_codelist_uti,
     "sinusitis": codelists.gp_snomed_codelist_sinusitis,
     "insectbite": codelists.gp_snomed_codelist_insect_bites,
-    "insectbite_strict": codelists.gp_snomed_codelist_insect_bites,
     "otitismedia": codelists.gp_snomed_codelist_otitis_media,
     "sorethroat": codelists.gp_snomed_codelist_sore_throat,
     "shingles": codelists.gp_snomed_codelist_shingles,
     "impetigo": codelists.gp_snomed_codelist_impetigo,
+}
+
+otherinsectbite_gp_codes = {
+    "insectbite_strict": codelists.gp_snomed_codelist_insect_bites_strict,
+    "insectbite_all": codelists.gp_snomed_codelist_insect_bites_all,
+    "cellulitis_only": codelists.gp_snomed_codelist_cellulitis_only,
 }
 
 control_conditions_gp_codes = {
@@ -199,6 +204,7 @@ control_conditions_gp_codes = {
 
 all_conditions_gp_codes = {
     **pf_conditions_gp_codes,
+    **otherinsectbite_gp_codes,
     **control_conditions_gp_codes,
 }
 
@@ -208,6 +214,30 @@ for name, codes in all_conditions_gp_codes.items():
     setattr(dataset, f"numerator_gp_event_{name}", count_gp_event)
     setattr(dataset, f"numerator_gp_consultation_{name}", count_gp_consultation)
     setattr(dataset, f"numerator_gp_date_{name}", count_gp_date)
+
+# A consultation contains at least one code from the all-insect-bites codelist 
+# AND at least one cellulitis code.
+# All insect bite events
+insectbite_all_events = gp_events_clean.where(
+    gp_events_clean.snomedct_code.is_in(
+        codelists.gp_snomed_codelist_insect_bites_all
+    )
+)
+insectbite_all_ids = insectbite_all_events.consultation_id
+cellulitis_events = gp_events_clean.where(
+    gp_events_clean.snomedct_code.is_in(
+        codelists.gp_snomed_codelist_cellulitis_only
+    )
+)
+insectbite_all_plus_cellulitis_events = cellulitis_events.where(
+    cellulitis_events.consultation_id.is_in(insectbite_all_ids)
+)
+insectbite_all_plus_cellulitis_ids = (
+    insectbite_all_plus_cellulitis_events.consultation_id
+)
+dataset.numerator_gp_consultation_insectbite_all_plus_cellulitis = (
+    insectbite_all_plus_cellulitis_ids.count_distinct_for_patient()
+)
 
 ########################################################
 '''

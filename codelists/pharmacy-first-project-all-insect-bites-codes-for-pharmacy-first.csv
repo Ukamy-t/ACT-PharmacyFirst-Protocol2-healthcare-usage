@@ -1,0 +1,428 @@
+code,term
+10461000,Nonvenomous insect bite with infection
+10662001,Nonvenomous insect bite of face with infection
+110432000,Insect bite granuloma
+111708002,Nonvenomous insect bite of interscapular region without infection
+11773571000119109,Infected wound of right elbow due to non venomous insect bite
+11773611000119100,Wound of right elbow region due to nonvenomous insect bite
+11773651000119104,Infected wound of left elbow due to non venomous insect bite
+11773691000119109,Wound of left elbow region due to nonvenomous insect bite
+11773731000119102,Nonvenomous insect bite of right thumb with infection
+11773811000119104,Nonvenomous insect bite of left thumb with infection
+11779561000119100,Infected wound of right forearm due to non venomous insect bite
+11779601000119100,Infected wound of left forearm due to non venomous insect bite
+11779841000119102,Wound of right forearm due to nonvenomous insect bite
+11779881000119107,Wound of left forearm due to nonvenomous insect bite
+11783401000119109,Infected wound of right hip due to nonvenomous insect bite
+11783441000119106,Infected wound of left hip due to nonvenomous insect bite
+11783681000119103,Nonvenomous insect bite of finger of right hand with infection
+11783721000119109,Nonvenomous insect bite of right index finger with infection
+11783761000119104,Nonvenomous insect bite of right little finger with infection
+11783801000119107,Nonvenomous insect bite of right middle finger with infection
+11783841000119109,Nonvenomous insect bite of right ring finger with infection
+11783961000119101,Infected wound of right thigh due to nonvenomous insect bite
+11784001000119100,Infected wound of left thigh due to nonvenomous insect bite
+11784041000119103,Infected wound of right wrist due to non venomous insect bite
+11784081000119108,Infected wound of left wrist due to non venomous insect bite
+11785921000119107,Wound of right wrist due to nonvenomous insect bite
+11785961000119102,Wound of left wrist due to nonvenomous insect bite
+11786001000119105,Nonvenomous insect bite of right hand
+11786041000119107,Nonvenomous insect bite of left hand
+11789161000119101,Nonvenomous insect bite of finger of left hand
+11789201000119106,Nonvenomous insect bite of left index finger
+11789321000119108,Nonvenomous insect bite of middle finger of left hand
+11789361000119103,Nonvenomous insect bite of finger of left hand with infection
+11789401000119107,Nonvenomous insect bite of left index finger with infection
+11789441000119109,Nonvenomous insect bite of left little finger with infection
+11789481000119104,Nonvenomous insect bite of left middle finger with infection
+11789521000119104,Nonvenomous insect bite of left ring finger with infection
+11789561000119109,Nonvenomous insect bite of finger of right hand
+11789601000119109,Nonvenomous insect bite of right index finger
+11789681000119101,Nonvenomous insect bite of middle finger of right hand
+11793541000119106,Infected nonvenomous insect bite of right ankle
+11793581000119101,Infected nonvenomous insect bite of left ankle
+11793621000119101,Nonvenomous insect bite of lesser toe of right foot
+11793661000119106,Nonvenomous insect bite of lesser toe of left foot
+11793701000119104,Wound of right foot due to nonvenomous insect bite
+11793741000119102,Wound of left foot due to nonvenomous insect bite
+11808981000119103,Wound of right hip region due to nonvenomous insect bite
+11809021000119109,Wound of left hip region due to nonvenomous insect bite
+11809061000119104,Wound of right thigh due to nonvenomous insect bite
+11809101000119101,Wound of left thigh due to nonvenomous insect bite
+11809141000119104,Nonvenomous insect bite of male genitalia with infection
+11809181000119109,Nonvenomous insect bite of sacrum
+11809221000119101,Infected wound of low back due to nonvenomous insect bite
+11809301000119103,Nonvenomous insect bite of pelvis with infection
+11809341000119101,Wound of lower back due to nonvenomous insect bite
+11809381000119106,Nonvenomous insect bite of pelvis
+11809661000119109,Infected wound of right knee due to nonvenomous insect bite
+11809701000119102,Infected wound of left knee due to nonvenomous insect bite
+11809741000119100,Wound of right lower leg due to nonvenomous insect bite
+11809781000119105,Wound of left lower leg due to nonvenomous insect bite
+11809821000119100,Wound of right knee region due to nonvenomous insect bite
+11809861000119105,Wound of left knee region due to nonvenomous insect bite
+11810261000119103,Nonvenomous insect bite of female genitalia with infection
+11813101000119100,Nonvenomous insect bite of female genitalia
+11822601000119105,Nonvenomous insect bite of right axilla with infection
+11822641000119107,Nonvenomous insect bite of left axilla with infection
+11822681000119102,Wound of right axilla due to nonvenomous insect bite
+11822721000119108,Wound of left axilla due to nonvenomous insect bite
+11823241000119101,Nonvenomous insect bite of right shoulder with infection
+11823281000119106,Nonvenomous insect bite of left shoulder with infection
+11823321000119101,Infected wound of right upper arm due to non venomous insect bite
+11823361000119106,Infected wound of left upper arm due to non venomous insect bite
+11823721000119102,Wound of right upper arm due to nonvenomous insect bite
+11823761000119107,Wound of left upper arm due to nonvenomous insect bite
+11823801000119104,Wound of right shoulder due to nonvenomous insect bite
+11823841000119102,Wound of left shoulder due to nonvenomous insect bite
+11837001000119102,Infected wound of right lower leg due to nonvenomous insect bite
+11837041000119100,Infected wound of left lower leg due to nonvenomous insect bite
+11843471000119109,Nonvenomous insect bite of right ear with infection
+11843511000119100,Nonvenomous insect bite of left ear with infection
+11843551000119104,Wound of right ear due to nonvenomous insect bite
+11843591000119109,Wound of left ear due to nonvenomous insect bite
+11847691000119103,Nonvenomous insect bite of tongue with infection
+11847731000119105,Nonvenomous insect bite of tongue
+11847821000119101,Nonvenomous insect bite of cheek
+11847901000119100,Nonvenomous insect bite of mouth
+11848301000119100,Infected wound of right eyelid due to nonvenomous insect bite
+11848341000119103,Wound of right eyelid due to nonvenomous insect bite
+11848381000119108,Infected wound of left eyelid due to nonvenomous insect bite
+11848421000119104,Wound of left eyelid due to nonvenomous insect bite
+11849141000119108,Nonvenomous insect bite of right breast with infection
+11849181000119103,Nonvenomous insect bite of left breast with infection
+11849221000119106,Wound of right breast due to nonvenomous insect bite
+11849261000119101,Wound of left breast due to nonvenomous insect bite
+11849301000119109,Nonvenomous insect bite of right half of chest wall with infection
+11849341000119106,Nonvenomous insect bite of left half of chest wall with infection
+11849381000119101,Wound of right half of chest wall due to nonvenomous insect bite
+11849421000119105,Wound of left half of chest wall due to nonvenomous insect bite
+11849821000119107,Nonvenomous insect bite of forehead
+11849861000119102,Wound of head due to nonvenomous insect bite
+11851361000119106,Nonvenomous insect bite of right half of posterior thorax with infection
+11851401000119102,Nonvenomous insect bite of right half of posterior chest wall
+11851441000119100,Nonvenomous insect bite of left half of posterior thorax with infection
+11851481000119105,Nonvenomous insect bite of left half of posterior chest wall
+11852981000119108,Nonvenomous insect bite of chin with infection
+11853021000119103,Nonvenomous insect bite of chin
+11862361000119107,Nonvenomous insect bite of right great toe with infection
+11862401000119103,Nonvenomous insect bite of left great toe with infection
+11862441000119101,Nonvenomous insect bite of lesser toe of right foot with infection
+11862481000119106,Nonvenomous insect bite of lesser toe of left foot with infection
+11862521000119106,Infected wound of right foot due to nonvenomous insect bite
+11862561000119101,Infected wound of left foot due to nonvenomous insect bite
+11862601000119101,Wound of right ankle due to nonvenomous insect bite
+11862641000119104,Wound of left ankle due to nonvenomous insect bite
+1255440004,Nonvenomous insect bite of index finger
+1255441000,Nonvenomous insect bite of lesser toe
+1255492008,Nonvenomous insect bite of great toe
+1255493003,Nonvenomous insect bite of right great toe
+1255494009,Nonvenomous insect bite of left great toe
+1255495005,Nonvenomous insect bite of middle finger
+1255496006,Nonvenomous insect bite of ring finger
+1255497002,Nonvenomous insect bite of left ring finger
+1255498007,Nonvenomous insect bite of right ring finger
+1255499004,Nonvenomous insect bite of little finger
+1255500008,Nonvenomous insect bite of left little finger
+1255501007,Nonvenomous insect bite of right little finger
+1255502000,Nonvenomous insect bite of thumb
+1255503005,Nonvenomous insect bite of left thumb
+1255504004,Nonvenomous insect bite of right thumb
+1354689009,Nonvenomous insect bite of upper limb
+1354803005,Nonvenomous insect bite of lower limb
+1366286009,Nonvenomous insect bite of great toe with infection
+1366287000,Nonvenomous insect bite of lesser toe with infection
+1366288005,Nonvenomous insect bite of index finger with infection
+1366289002,Nonvenomous insect bite of little finger with infection
+1366290006,Nonvenomous insect bite of middle finger with infection
+1366291005,Nonvenomous insect bite of ring finger with infection
+1366292003,Nonvenomous insect bite of thumb with infection
+1366293008,Nonvenomous insect bite of posterior thorax with infection
+13737005,Nonvenomous insect bite of shoulder without infection
+13904004,Nonvenomous insect bite of wrist without infection
+13915009,Nonvenomous insect bite of buttock without infection
+14096004,Nonvenomous insect bite of scapular region with infection
+14220008,Nonvenomous insect bite of lip without infection
+15034009,Nonvenomous insect bite of breast with infection
+157440008,(Superficial injuries (&/or [bruises+crush] or (& [blisters])) or (abrasions) or (insect bites - non venom) or (bruises) or (contusions) or (haematomas - traumatic) or (scratches) or (splinters)
+157444004,"Insect bite, nonvenomous, of face"
+157450009,"Insect bite, nonvenomous, of scalp"
+157456003,"Insect bite, nonvenomous, of neck"
+157463003,Insect bite to trunk - nonvenomous
+157469004,Insect bite to arm - nonvenomous
+157475008,Insect bite to hand - nonvenomous
+157481000,Insect bite to leg - nonvenomous
+157487001,"Insect bite, nonvenomous, of foot"
+157493009,Insect bite to eyelids - nonvenomous
+157499008,Insect bite to cornea - nonvenomous
+157505009,"Insect bite, nonvenomous NOS"
+157938009,Insect bite: (& NOS)
+17198008,Nonvenomous insect bite of ear with infection
+17384006,Nonvenomous insect bite of toe with infection
+19108007,Nonvenomous insect bite of trunk with infection
+19691000119101,Nonvenomous insect bite of lip
+200733000,(Septic spots) or (sinus) or (infected skin: [insect bite] or [ulcer] or [dermatitis] or [local infection skin/subcutaneous tissue NOS])
+20638007,Nonvenomous insect bite of scalp without infection
+21037006,Nonvenomous insect bite of neck without infection
+210984001,(Superficial injury) or (abrasions) or (blisters) or (friction burns) or (splinters) or (sting (& without reaction): [bee] or [wasp]) or (bites: [insect - non venomous] or [flea])
+211007004,"Insect bite, nonvenomous, of head, without mention of infection"
+211008009,"Insect bite, nonvenomous, of face"
+211009001,"Insect bite, nonvenomous, of neck"
+211010006,"Insect bite, nonvenomous, of scalp"
+211011005,"Insect bite, nonvenomous, of head, without infection NOS"
+211012003,"Insect bite, nonvenomous, of head, infected"
+211013008,"Insect bite, nonvenomous, of head, infected, NOS"
+211102008,"Insect bite, nonvenomous, of trunk, without mention of infection"
+211103003,"Insect bite, nonvenomous, of interscapular region"
+211104009,"Insect bite, nonvenomous, of chest wall"
+211105005,"Insect bite, nonvenomous, of breast"
+211106006,"Insect bite, nonvenomous, of abdominal wall"
+211107002,"Insect bite, nonvenomous, of back"
+211108007,"Insect bite, nonvenomous, of buttock"
+211109004,"Insect bite, nonvenomous, of anus"
+211110009,"Insect bite, nonvenomous, of flank"
+211111008,"Insect bite, nonvenomous, of groin"
+211112001,"Insect bite, nonvenomous, of perineum"
+211113006,"Insect bite, nonvenomous, of penis"
+211114000,"Insect bite, nonvenomous (& without mention of infection): [scrotum] &/or [testis]"
+211115004,"Insect bite, nonvenomous, of vulva"
+211116003,"Insect bite, nonvenomous, of vagina"
+211117007,"Insect bite, nonvenomous, of trunk, without mention of infection, NOS"
+211118002,"Insect bite, nonvenomous, of scrotum &/or testis, infected"
+211119005,"Insect bite, nonvenomous, of trunk, infected, NOS"
+211214009,"Insect bite, nonvenomous, of shoulder and upper arm, without mention of infection"
+211215005,"Insect bite, nonvenomous, of shoulder"
+211216006,"Insect bite, nonvenomous, of interscapular region"
+211217002,"Insect bite, nonvenomous, of axilla"
+211218007,"Insect bite, nonvenomous, of upper arm"
+211219004,"Insect bite, nonvenomous, of shoulder and upper arm, without mention of infection, NOS"
+211220005,"Insect bite, nonvenomous, of shoulder and upper arm, infected"
+211221009,"Insect bite, nonvenomous, of interscapular region, infected"
+211222002,"Insect bite, nonvenomous, of shoulder and upper arm, infected, NOS"
+211271007,"Insect bite, nonvenomous, of lower arm, without mention of infection"
+211272000,"Insect bite, nonvenomous, of elbow"
+211273005,"Insect bite, nonvenomous, of forearm"
+211274004,"Insect bite, nonvenomous, of wrist"
+211275003,"Insect bite, nonvenomous, of lower arm, without mention of infection, NOS"
+211276002,"Insect bite, nonvenomous, of lower arm, infected"
+211277006,"Insect bite, nonvenomous, of lower arm, infected, NOS"
+211309007,"Insect bite, nonvenomous, of hand, without mention of infection"
+211323009,"Insect bite, nonvenomous, of finger, without mention of infection"
+211357001,"Insect bite, nonvenomous, of lower limb, without mention of infection"
+211358006,"Insect bite, nonvenomous, of hip"
+211359003,"Insect bite, nonvenomous, of thigh"
+211360008,"Insect bite, nonvenomous, of knee"
+211361007,"Insect bite, nonvenomous, lower leg"
+211362000,"Insect bite, nonvenomous, of ankle"
+211363005,"Insect bite, nonvenomous, of lower limb, without mention of infection NOS"
+211364004,"Insect bite, nonvenomous, of lower limb, infected"
+211365003,"Insect bite, nonvenomous, of knee, infected"
+211366002,"Insect bite, nonvenomous, of lower limb, infected, NOS"
+211418005,"Insect bite, nonvenomous, of foot and toe, without mention of infection"
+211419002,"Insect bite, nonvenomous: [foot] or [heel, without infection]"
+211421007,"Insect bite, nonvenomous, of toe"
+211422000,"Insect bite, nonvenomous, of foot and toe, without mention of infection, NOS"
+211423005,"Insect bite, nonvenomous, infected: [foot and toe] or [heel]"
+211424004,"Insect bite, nonvenomous, of foot and toe, infected, NOS"
+211446007,Insect bite of eyelids (& periocular area)
+211460009,"Insect bite, nonvenomous, without mention of infection NOS"
+211461008,"Insect bite, nonvenomous, infected, NOS"
+213024000,Allergic reaction caused by insect bite
+21494009,Nonvenomous insect bite of leg with infection
+217706007,Bite of nonvenomous arthropod
+217707003,Insect bite NOS ( & flea)
+23111000,Nonvenomous insect bite of scrotum without infection
+23455003,Nonvenomous insect bite of hip without infection
+23458001,Nonvenomous insect bite of finger without infection
+238452008,Insect bite granuloma
+240909002,Bite of reduviid bug
+241818005,Poisoning due to bite of tick
+241931004,Bee sting-induced anaphylaxis
+241932006,Wasp sting-induced anaphylaxis
+242590008,Poisonous insect bite
+242592000,Poisoned bite of tick
+242634008,Bite of Diptera species
+242635009,Bite of mosquito
+242636005,Bite of gnat
+242637001,Bite of midge
+242638006,Bite of horse-fly
+242639003,Bite of sandfly
+242640001,Bite of tsetse fly
+242641002,Bite of Syphonaptera species
+242642009,Bite of human flea
+242643004,Bite of animal flea
+242644005,Bite of Anoplura species
+242645006,Bite of body louse
+242647003,Bite of pubic louse
+242648008,Bite of Hemiptera species
+242649000,Bite of bed bug
+24734008,Insect bite
+25726008,Nonvenomous insect bite of groin with infection
+262550002,Infected insect bite
+262551003,Flea bites
+2683000,Nonvenomous insect bite of axilla without infection
+269196004,"Insect bite, nonvenomous, of scrotum and testis"
+269197008,"Insect bite, nonvenomous, of scrotum and/or testis, infected"
+269205004,"Insect bite, nonvenomous, of foot"
+269206003,"Insect bite, nonvenomous, of foot and toe, infected"
+269211001,Insect bite of eyelids and periocular area
+269363005,(Superficial injuries (&/or [bruises+crush] or (& [blisters])) or (abrasions) or (insect bites - non venom) or (bruises) or (contusions) or (haematomas - traumatic) or (scratches) or (splinters)
+269712007,Insect bite NOS
+271210003,Insect bite: (& NOS)
+27447009,Nonvenomous insect bite of groin without infection
+276433004,Insect bite - wound
+278487002,Insect bite of eyelid
+282095007,Allergic reaction caused by bee sting
+283321007,Insect bite of head and neck
+283322000,Insect bite of head
+283323005,Insect bite of forehead
+283324004,Insect bite of eye region
+283325003,Insect bite of ear region
+283326002,Insect bite of nose
+283327006,Insect bite of cheek
+283328001,Insect bite of mouth
+283329009,Insect bite of throat
+283330004,Insect bite of upper limb
+283331000,Insect bite of hand
+283332007,Insect bite of dorsum of hand
+283333002,Insect bite of palm of hand
+283334008,Insect bite of finger
+283335009,Insect bite of thumb
+283336005,Insect bite of trunk
+283337001,Insect bite of pelvic region
+283338006,Insect bite of genitalia
+283339003,Insect bite of lower limb
+283340001,Insect bite of great toe
+283341002,Insect bite of dorsum of foot
+283342009,Insect bite of sole of foot
+283343004,Insect bite of heel
+283344005,Mosquito bite
+283345006,Fly bite
+283346007,Infected insect bite of head and neck
+283347003,Infected insect bite of upper limb
+283348008,Infected insect bite of dorsum of hand
+283349000,Infected insect bite of palm of hand
+283350000,Infected insect bite of thumb
+283351001,Infected insect bite of pelvic region
+283352008,Infected insect bite of genitalia
+283353003,Infected insect bite of dorsum of foot
+283354009,Infected insect bite of sole of foot
+287109001,Insect bite to trunk - nonvenomous
+287112003,Insect bite to arm - nonvenomous
+287115001,Insect bite to hand - nonvenomous
+287118004,Insect bite to leg - nonvenomous
+287123004,Insect bite to eyelids - nonvenomous
+287126007,Insect bite to cornea - nonvenomous
+287130005,"Insect bite, nonvenomous NOS"
+29757004,Nonvenomous insect bite of foot without infection
+300909004,Allergic reaction caused by wasp sting
+3032005,Nonvenomous insect bite of cheek without infection
+30818003,Nonvenomous insect bite of perineum with infection
+3084004,Nonvenomous insect bite of gum without infection
+31867006,Nonvenomous insect bite of perineum without infection
+33155001,Nonvenomous insect bite of flank with infection
+35057008,Nonvenomous insect bite of penis with infection
+35383007,Nonvenomous insect bite of penis without infection
+37887002,Nonvenomous insect bite of neck with infection
+38189003,Nonvenomous insect bite of ankle with infection
+402150002,Insect bite reaction
+403145002,Thrip bite
+403148000,Bullous insect bite reaction
+4124006,Nonvenomous insect bite of vagina with infection
+41958008,Nonvenomous insect bite of back with infection
+419884005,Allergic reaction caused by flea bite
+42032008,Nonvenomous insect bite of abdominal wall with infection
+42089007,Nonvenomous insect bite of anus with infection
+428471001,Nonvenomous insect bite of multiple sites with infection
+428509000,Nonvenomous insect bite of multiple sites
+428762009,Infected insect bite of hand
+429305003,Nonvenomous insect bite
+44352004,Nonvenomous insect bite of hand with infection
+446845005,Nonvenomous insect bite of finger
+44921007,Nonvenomous insect bite of ear without infection
+449643001,Nonvenomous insect bite of lower leg with infection
+449720001,Nonvenomous insect bite of lower limb without infection
+449915007,Nonvenomous insect bite of lower leg without infection
+45915002,Nonvenomous insect bite of upper arm with infection
+462773006,Insect bite/sting kit
+47027001,Nonvenomous insect bite of scrotum with infection
+49976003,Nonvenomous insect bite of back without infection
+50124004,Nonvenomous insect bite of buttock with infection
+51882009,Nonvenomous insect bite of interscapular region with infection
+52705001,Nonvenomous insect bite of finger with infection
+528461000000100,"Insect bite, nonvenomous, of lower arm, without mention of infection"
+528721000000104,"Insect bite, nonvenomous, of hand, without mention of infection"
+528741000000106,"Insect bite, nonvenomous, of finger, without mention of infection"
+529241000000109,"Insect bite, nonvenomous, of trunk, without mention of infection"
+529771000000109,"Insect bite, nonvenomous, of foot and toe, without mention of infection"
+530941000000109,"Insect bite, nonvenomous, of lower limb, without mention of infection"
+531401000000107,"Insect bite, nonvenomous, of head, without mention of infection"
+53188002,Nonvenomous insect bite of gum with infection
+531891000000102,"Insect bite, nonvenomous, of shoulder and upper arm, without mention of infection"
+53706009,Nonvenomous insect bite of vulva with infection
+54504003,Nonvenomous insect bite of leg without infection
+56892000,Nonvenomous insect bite of chest wall with infection
+59443003,Nonvenomous insect bite of thigh with infection
+60298004,Nonvenomous insect bite of forearm with infection
+606611000000102,"Insect bite, nonvenomous, of foot and toe, without mention of infection, NOS"
+606621000000108,"Insect bite, nonvenomous, of foot and toe, infected, NOS"
+60807005,Nonvenomous insect bite of lip with infection
+609337004,Infected insect bite by site
+622231000000100,"Insect bite, nonvenomous, without mention of infection NOS"
+622241000000109,"Insect bite, nonvenomous, infected, NOS"
+62591002,Nonvenomous insect bite of abdominal wall without infection
+62679002,Nonvenomous insect bite of vulva without infection
+635571000000105,"Insect bite, nonvenomous, of head, without infection NOS"
+635581000000107,"Insect bite, nonvenomous, of head, infected, NOS"
+635651000000102,"Insect bite, nonvenomous, of lower arm, infected, NOS"
+653711000000105,"Insect bite, nonvenomous, of trunk, without mention of infection, NOS"
+653721000000104,"Insect bite, nonvenomous, of trunk, infected, NOS"
+673231000000107,"Insect bite, nonvenomous, of lower limb, without mention of infection NOS"
+673241000000103,"Insect bite, nonvenomous, of lower limb, infected, NOS"
+676261000000105,"Insect bite, nonvenomous, of shoulder and upper arm, without mention of infection, NOS"
+676271000000103,"Insect bite, nonvenomous, of shoulder and upper arm, infected, NOS"
+67862004,Nonvenomous insect bite of elbow with infection
+67974004,Nonvenomous insect bite of nose with infection
+682421000000108,"Insect bite, nonvenomous NOS"
+68626000,Nonvenomous insect bite of upper arm without infection
+68765006,Nonvenomous insect bite of ankle without infection
+692061000000106,"Insect bite, nonvenomous, of lower arm, without mention of infection, NOS"
+695211000000109,Insect bite NOS
+69743002,Nonvenomous insect bite of hand without infection
+698297006,Bite of nonvenomous spider
+70294003,Nonvenomous insect bite of scalp with infection
+70417006,Nonvenomous insect bite of nose without infection
+71696000,Nonvenomous insect bite of face without infection
+71804007,Nonvenomous insect bite of scapular region without infection
+72498006,Nonvenomous insect bite of breast without infection
+73405008,Nonvenomous insect bite of trunk without infection
+736256005,Persistent insect bite reaction
+7371002,Nonvenomous insect bite of anus without infection
+74225001,Tick paralysis
+76584003,Nonvenomous insect bite of hip with infection
+771268008,Bite of nonvenomous insect
+77874001,Nonvenomous insect bite of shoulder with infection
+78319006,Nonvenomous insect bite
+78761003,Nonvenomous insect bite of testis without infection
+788966003,Insect bite reaction of skin
+789229008,Infected wound of eyelid due to nonvenomous insect bite
+789230003,Infected wound of bilateral eyelids due to nonvenomous insect bite
+801006,Nonvenomous insect bite of foot with infection
+80961000,Nonvenomous insect bite of chest wall without infection
+81769002,Nonvenomous insect bite of testis with infection
+82244004,Nonvenomous insect bite of elbow without infection
+8297008,Nonvenomous insect bite of toe without infection
+83587009,Nonvenomous insect bite of cheek with infection
+84070009,Nonvenomous insect bite of axilla with infection
+87005006,Nonvenomous insect bite of vagina without infection
+871920005,Allergic reaction caused by insect bite
+871926004,Anaphylaxis caused by insect bite and/or insect sting
+871927008,Allergic reaction caused by insect bite and/or insect sting
+874914008,Nonvenomous insect bite of gum
+874916005,Nonvenomous insect bite of nose
+874930000,Nonvenomous insect bite of scrotum
+89021008,Nonvenomous insect bite without infection
+8975004,Nonvenomous insect bite of thigh without infection
+90789007,Nonvenomous insect bite of flank without infection
+91060006,Nonvenomous insect bite of wrist with infection
+9377008,Nonvenomous insect bite of forearm without infection

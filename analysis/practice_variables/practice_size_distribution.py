@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("output/practice_level_data.csv")
+df = pd.read_csv("output/dataset_practices.csv.gz")
 
 df["interval_start"] = pd.to_datetime(df["interval_start"])
 latest = df[df["interval_start"] == df["interval_start"].max()]

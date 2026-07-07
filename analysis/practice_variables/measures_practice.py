@@ -9,8 +9,9 @@ claim_permissions("appointments")
 measures = create_measures()
 measures.configure_disclosure_control(enabled=False)
 measures.define_defaults(
-    intervals=months(2).starting_on("2025-10-01"),
+    # intervals=months(2).starting_on("2025-10-01"),
     # intervals=years(2).starting_on("2024-02-01")
+    intervals=months(48).starting_on("2022-02-01"),
 )
 
 measure_base_population = (
@@ -46,17 +47,17 @@ measures.define_measure(
     group_by=group,
 )
 
-# PF consultations
-measures.define_measure(
-    name="pf_consultation_general",
-    numerator=dataset.pf_consultation_general,
-    denominator=pf_eligible_population,
-    group_by=group,
-)
+# # PF consultations for testing purpose
+# measures.define_measure(
+#     name="pf_consultation_general",
+#     numerator=dataset.pf_consultation_general,
+#     denominator=pf_eligible_population,
+#     group_by=group,
+# )
 
-measures.define_measure(
-    name="pf_consultation_uti",
-    numerator=dataset.numerator_pf_consultation_uti,
-    denominator=measure_base_population & dataset.include_patient_uuti,
-    group_by=group,
-)
+# measures.define_measure(
+#     name="pf_consultation_uti",
+#     numerator=dataset.numerator_pf_consultation_uti,
+#     denominator=measure_base_population & dataset.include_patient_uuti,
+#     group_by=group,
+# )

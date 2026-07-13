@@ -193,10 +193,17 @@ pf_conditions_gp_codes = {
     "impetigo": codelists.gp_snomed_codelist_impetigo,
 }
 
+# Combined definition: strict infected insect bites OR all insect bites
+insectbite_all_or_strict_event_codes = (
+    *codelists.gp_snomed_codelist_insect_bites_strict,
+    *codelists.gp_snomed_codelist_insect_bites_all,
+)
+
 otherinsectbite_gp_codes = {
     "insectbite_strict": codelists.gp_snomed_codelist_insect_bites_strict,
     "insectbite_all": codelists.gp_snomed_codelist_insect_bites_all,
     "cellulitis_only": codelists.gp_snomed_codelist_cellulitis_only,
+    "insectbite_strict_or_all": insectbite_all_or_strict_event_codes,
 }
 
 control_conditions_gp_codes = {
@@ -216,28 +223,86 @@ for name, codes in all_conditions_gp_codes.items():
     setattr(dataset, f"numerator_gp_consultation_{name}", count_gp_consultation)
     setattr(dataset, f"numerator_gp_date_{name}", count_gp_date)
 
-# A consultation contains at least one code from the all-insect-bites codelist 
-# AND at least one cellulitis code.
-# All insect bite events
+# ------------------------------------------------------
+# Definition 5: at least one code from the all-insect-bites codelist AND at least one cellulitis code.
+# ------------------------------------------------------
+# Combined definition: all insect bites PLUS cellulitis
+insectbite_all_and_cellulitis_event_codes = (
+    *codelists.gp_snomed_codelist_insect_bites_all,
+    *codelists.gp_snomed_codelist_cellulitis_only,
+)
+# Events with an all-insect-bites code
 insectbite_all_events = gp_events_clean.where(
     gp_events_clean.snomedct_code.is_in(
         codelists.gp_snomed_codelist_insect_bites_all
     )
 )
-insectbite_all_ids = insectbite_all_events.consultation_id
+# Events with a cellulitis code
 cellulitis_events = gp_events_clean.where(
     gp_events_clean.snomedct_code.is_in(
         codelists.gp_snomed_codelist_cellulitis_only
     )
 )
-insectbite_all_plus_cellulitis_events = cellulitis_events.where(
-    cellulitis_events.consultation_id.is_in(insectbite_all_ids)
-)
+cellulitis_ids = cellulitis_events.consultation_id
+# Consultations containing both an all-insect-bites code AND a cellulitis code
 insectbite_all_plus_cellulitis_ids = (
-    insectbite_all_plus_cellulitis_events.consultation_id
+    insectbite_all_events.where(
+        insectbite_all_events.consultation_id.is_in(cellulitis_ids)
+    ).consultation_id
 )
+# Retain relevant insect-bite and cellulitis events
+# from consultations satisfying definition 5
+insectbite_all_plus_cellulitis_condition_events = gp_events_clean.where(
+    gp_events_clean.consultation_id.is_in(
+        insectbite_all_plus_cellulitis_ids
+    )
+    & gp_events_clean.snomedct_code.is_in(
+        insectbite_all_and_cellulitis_event_codes
+    )
+)
+
+dataset.numerator_gp_event_insectbite_all_plus_cellulitis = (
+    insectbite_all_plus_cellulitis_condition_events.count_for_patient()
+)
+
 dataset.numerator_gp_consultation_insectbite_all_plus_cellulitis = (
-    insectbite_all_plus_cellulitis_ids.count_distinct_for_patient()
+    insectbite_all_plus_cellulitis_condition_events.consultation_id
+    .count_distinct_for_patient()
+)
+
+dataset.numerator_gp_date_insectbite_all_plus_cellulitis = (
+    insectbite_all_plus_cellulitis_condition_events.date
+    .count_distinct_for_patient()
+)
+
+# ------------------------------------------------------
+# Definition combined: strict, or, at least one code from the all-insect-bites codelist AND at least one cellulitis code.
+# ------------------------------------------------------
+# Combined definition: definition 2 OR definition 5
+insectbite_strict_or_all_plus_cellulitis_events = gp_events_clean.where(
+    # Events identified by the strict codelist (definition 2)
+    (
+        gp_events_clean.snomedct_code.is_in(codelists.gp_snomed_codelist_insect_bites_strict)
+    )
+    |
+    # Relevant insect-bite plus cellulitis events from definition-5 consultations
+    (
+        gp_events_clean.consultation_id.is_in(insectbite_all_plus_cellulitis_ids)
+        & gp_events_clean.snomedct_code.is_in(insectbite_all_and_cellulitis_event_codes)
+    )
+)
+dataset.numerator_gp_event_insectbite_strict_or_all_plus_cellulitis = (
+    insectbite_strict_or_all_plus_cellulitis_events.count_for_patient()
+)
+
+dataset.numerator_gp_consultation_insectbite_strict_or_all_plus_cellulitis = (
+    insectbite_strict_or_all_plus_cellulitis_events.consultation_id
+    .count_distinct_for_patient()
+)
+
+dataset.numerator_gp_date_insectbite_strict_or_all_plus_cellulitis = (
+    insectbite_strict_or_all_plus_cellulitis_events.date
+    .count_distinct_for_patient()
 )
 
 ########################################################

@@ -51,7 +51,9 @@ definition_order = [
     "insectbite_strict",
     "insectbite_all",
     "cellulitis_only",
+    "insectbite_strict_or_all",
     "insectbite_all_plus_cellulitis",
+    "insectbite_strict_or_all_plus_cellulitis"
 ]
 
 summary["definition"] = pd.Categorical(

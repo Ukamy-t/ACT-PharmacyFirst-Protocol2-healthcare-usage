@@ -14,7 +14,7 @@ Definitions:
 """
 
 from ehrql import create_measures, months
-from analysis.dataset_definition_patients_measures import dataset
+from analysis.validation_insectbites.dataset_definition_patients_measures import dataset
 # opensafely exec ehrql:v1 generate-measures analysis/measures_patient.py --output output/measures_patient.csv
 
 measures = create_measures()
@@ -35,9 +35,9 @@ insectbite_definitions = {
     "insectbite_strict": dataset.numerator_gp_consultation_insectbite_strict,
     "insectbite_all": dataset.numerator_gp_consultation_insectbite_all,
     "cellulitis_only": dataset.numerator_gp_consultation_cellulitis_only,
-    "insectbite_all_plus_cellulitis": (
-        dataset.numerator_gp_consultation_insectbite_all_plus_cellulitis
-    ),
+    "insectbite_strict_or_all": dataset.numerator_gp_consultation_insectbite_strict_or_all,
+    "insectbite_all_plus_cellulitis":dataset.numerator_gp_consultation_insectbite_all_plus_cellulitis,
+    "insectbite_strict_or_all_plus_cellulitis":dataset.numerator_gp_consultation_insectbite_strict_or_all_plus_cellulitis,
 }
 
 for name, consultation_count in insectbite_definitions.items():

@@ -2,7 +2,7 @@ import yaml
 import analysis.project_setup.config as config
 from analysis.project_setup.config import month_range
 
-# utilisation: python analysis/project_setup/generate_project_action.py > project_test.yaml
+# utilisation: python -m analysis/project_setup/generate_project_action.py > project_test.yaml
 
 # start_dates = ["2024-02-01", "2024-03-01"]
 start_dates = month_range(config.start, config.end)

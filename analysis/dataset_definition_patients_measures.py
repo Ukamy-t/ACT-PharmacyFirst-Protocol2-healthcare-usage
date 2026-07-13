@@ -92,7 +92,6 @@ dataset.index_date = index_date
 dataset.registered_start = registered_start
 dataset.registered_index = registered_index
 dataset.alive = alive
-dataset.alive_start = alive_start
 dataset.sex = sex
 dataset.age = age
 dataset.date_of_birth = patients.date_of_birth # debug
@@ -489,8 +488,11 @@ Outputs:
 - gp_<name>_patient_date_othermode
 '''
 
-# for name, codes in pf_conditions_gp_codes.items():
-for name, codes in all_conditions_gp_codes.items():
+selected_conditions_gp_codes = {
+    **pf_conditions_gp_codes,
+    **control_conditions_gp_codes,
+}
+for name, codes in selected_conditions_gp_codes.items():
 
     # condition-specific events -> condition patient-dates
     condition_events = gp_events_clean.where(gp_events_clean.snomedct_code.is_in(codes))
@@ -561,17 +563,6 @@ for name, codes in all_conditions_gp_codes.items():
     setattr(dataset,f"gp_{name}_patient_date_telephone",condition_telephone.date.count_distinct_for_patient(),)
     setattr(dataset,f"gp_{name}_patient_date_econsultation",condition_econsultation.date.count_distinct_for_patient(),)
     setattr(dataset,f"gp_{name}_patient_date_othermode",condition_other.date.count_distinct_for_patient(),)
-
-    setattr(dataset,f"gp_{name}_patient_date_total",condition_events.date.count_distinct_for_patient(),)
-
-    setattr(
-        dataset,f"gp_{name}_patient_date_mode_sum",
-        getattr(dataset, f"gp_{name}_patient_date_f2f")
-        + getattr(dataset, f"gp_{name}_patient_date_online")
-        + getattr(dataset, f"gp_{name}_patient_date_telephone")
-        + getattr(dataset, f"gp_{name}_patient_date_econsultation")
-        + getattr(dataset, f"gp_{name}_patient_date_othermode"),
-    )
 
 ########################################################
 """

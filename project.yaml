@@ -189,11 +189,12 @@ actions:
       moderately_sensitive:
         measure_tables: output/patient_measures_consultation_events.csv
   
-  generate_patient_measures_consultation_basepop:
-    run: ehrql:v1 generate-measures analysis/validation/measures_patient_consultation_basepop.py --output output/patient_measures_consultation_basepop.csv
-    outputs:
-      moderately_sensitive:
-        measure_tables: output/patient_measures_consultation_basepop.csv
+  # # Measures for checking consultation population definition variables
+  # generate_patient_measures_consultation_basepop:
+  #   run: ehrql:v1 generate-measures analysis/validation/measures_patient_consultation_basepop.py --output output/patient_measures_consultation_basepop.csv
+  #   outputs:
+  #     moderately_sensitive:
+  #       measure_tables: output/patient_measures_consultation_basepop.csv
 
   # Measures for checking consultation mode variables
   # # local testing with dummy tables

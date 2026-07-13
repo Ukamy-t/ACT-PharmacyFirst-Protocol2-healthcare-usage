@@ -1,8 +1,12 @@
 from datetime import date
 
 # study design for protocol 2
-start = date(2022, 2, 1)
-end = date(2026, 1, 31)
+# start = date(2022, 2, 1)
+# end = date(2026, 1, 31)
+
+# test
+start = date(2024, 2, 1)
+end = date(2025, 1, 31)
 
 def month_range(start, end):
     dates = []

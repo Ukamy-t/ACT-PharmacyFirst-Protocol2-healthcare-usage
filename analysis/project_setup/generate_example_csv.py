@@ -10,13 +10,13 @@ import pandas as pd
 cwd = os.getcwd()
 print(f"Current working directory: {cwd}")
 
-# input_path = "./output/dataset_patients_combined.csv.gz"
-# output_path = "example/dataset_patients_example.csv"
-# date_col = "index_date"
+input_path = "./output/dataset_patients_combined.csv.gz"
+output_path = "example/dataset_patients_example.csv"
+date_col = "index_date"
 
-input_path = "./output/dataset_practices.csv.gz"
-output_path = "example/dataset_practices_example.csv"
-date_col = "interval_start"
+# input_path = "./output/dataset_practices.csv.gz"
+# output_path = "example/dataset_practices_example.csv"
+# date_col = "interval_start"
 
 # df = pd.read_csv(input_path)
 # Save example dataset

@@ -520,7 +520,7 @@ actions:
   # Actions defined for Protocol 2 analysis
   # PLEASE ADD ANALYSIS ACTIONS FROM HERE
   test_analysis:
-    run: python:v2 analysis/test_analysis.py --output output/pf_consultations_by_month.csv
+    run: python:v2 analysis/test_analysis_chunk.py --output output/pf_consultations_by_month.csv
     needs: [combine_monthly_patient_gz]
     outputs:
       moderately_sensitive:

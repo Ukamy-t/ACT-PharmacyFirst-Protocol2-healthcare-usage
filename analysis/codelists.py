@@ -150,6 +150,33 @@ gp_snomed_codelist_end_pregnancy = codelist_from_csv(
     category_column="term",
 )
 
+gp_snomed_codelist_miscarriage = codelist_from_csv(
+    "codelists/user-paolomazzone-openpregnosis-miscarriage-codes_v1.csv",
+    column="code",
+)
+
+gp_snomed_codelist_molar_pregnancy = codelist_from_csv(
+    "codelists/user-paolomazzone-openpregnosis-molar-codes_v1.csv",
+    column="code",
+)
+
+gp_snomed_codelist_blighted_ovum_pregnancy = codelist_from_csv(
+    "codelists/user-paolomazzone-openpregnosis-blighted-ovum-codes_v1.csv",
+    column="code",
+)
+
+gp_snomed_codelist_ectopic_pregnancy = codelist_from_csv(
+    "codelists/user-paolomazzone-openpregnosis-ectopic-codes_v1.csv",
+    column="code",
+)
+
+gp_snomed_codelist_early_loss_pregnancy = (
+    gp_snomed_codelist_miscarriage
+    + gp_snomed_codelist_molar_pregnancy
+    + gp_snomed_codelist_blighted_ovum_pregnancy
+    + gp_snomed_codelist_ectopic_pregnancy
+)
+
 # estimated date of delivery
 gp_snomed_codelist_pregnancy_edd = codelist_from_csv (
     "codelists/user-VickiPalin-pregnancy_edd_snomed.csv"

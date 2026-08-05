@@ -177,6 +177,7 @@ gp_snomed_codelist_early_loss_pregnancy = (
     + gp_snomed_codelist_ectopic_pregnancy
 )
 
+
 # estimated date of delivery
 gp_snomed_codelist_pregnancy_edd = codelist_from_csv (
     "codelists/user-VickiPalin-pregnancy_edd_snomed.csv"

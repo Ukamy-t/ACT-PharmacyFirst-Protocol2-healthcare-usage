@@ -26,22 +26,40 @@ dataset.pregnancy_end_recent = clinical_events.where(
     clinical_events.date.is_on_or_between(INTERVAL.start_date - weeks(32), INTERVAL.start_date - days(1))
     ).sort_by(clinical_events.date).last_for_patient().date
 
-# get recent end-of-pregnancy codes
+# get recent end-of-pregnancy SNOMED codes
 dataset.pregnancy_end_code = clinical_events.where(
     clinical_events.snomedct_code.is_in(codelists.gp_snomed_codelist_end_pregnancy)
     &
     clinical_events.date.is_on_or_between(INTERVAL.start_date - weeks(32), INTERVAL.start_date - days(1))
     ).sort_by(clinical_events.date).last_for_patient().snomedct_code
 
-# look ahead for end-of-pregnancy codes
-# look ahead 40 weeks - this captures most relevant pregnancies:
+
+# look ahead for early end-of-pregnancy codes
+# look ahead 16 weeks - early loss could be up to 24 weeks gestation but patient may not know about pregnancy until a few weeks in, 
+# and want to avoid capturing pregnancies that started after the current month
+dataset.early_pregnancy_end = clinical_events.where(
+    clinical_events.snomedct_code.is_in(codelists.gp_snomed_codelist_early_loss_pregnancy)
+    &
+    clinical_events.date.is_on_or_between(INTERVAL.start_date, INTERVAL.start_date + weeks(20))
+    ).sort_by(clinical_events.date).first_for_patient().date
+
+dataset.pregnancy_future_early_end_code = clinical_events.where(
+    clinical_events.snomedct_code.is_in(codelists.gp_snomed_codelist_early_loss_pregnancy)
+    &
+    clinical_events.date.is_on_or_between(INTERVAL.start_date, INTERVAL.start_date + weeks(20))
+    ).sort_by(clinical_events.date).first_for_patient().snomedct_code
+
+
+# look ahead for full term end-of-pregnancy codes ()
+# look ahead 30 weeks - this captures most relevant pregnancies:
+#   gestation may be 24-40 weeks after excluding early losses;
 #   person may not know about pregnancy until at least 5-6w;
-#   but gestation may be longer than 40 weeks;
 #   we're also looking across a whole month so some pregnancies may have started 4-5w later than others.
-# NB We're not splitting between short vs full term pregnancies so we can't be sure when each one started 
-# using this information alone. EDD should capture most though (next variable).
+#   and want to avoid capturing pregnancies that started after the current month.
 dataset.pregnancy_end = clinical_events.where(
     clinical_events.snomedct_code.is_in(codelists.gp_snomed_codelist_end_pregnancy)
+    &
+    ~clinical_events.snomedct_code.is_in(codelists.gp_snomed_codelist_early_loss_pregnancy)
     &
     clinical_events.date.is_on_or_between(INTERVAL.start_date, INTERVAL.start_date + weeks(40))
     ).sort_by(clinical_events.date).first_for_patient().date
@@ -49,9 +67,10 @@ dataset.pregnancy_end = clinical_events.where(
 dataset.pregnancy_future_end_code = clinical_events.where(
     clinical_events.snomedct_code.is_in(codelists.gp_snomed_codelist_end_pregnancy)
     &
+    ~clinical_events.snomedct_code.is_in(codelists.gp_snomed_codelist_early_loss_pregnancy)
+    &
     clinical_events.date.is_on_or_between(INTERVAL.start_date, INTERVAL.start_date + weeks(40))
     ).sort_by(clinical_events.date).first_for_patient().snomedct_code
-
 
 # estimated date of delivery (EDD) - very recent or in future
 # to estimate the known start of pregnancy
@@ -79,6 +98,9 @@ dataset.pregnancy_code_snomed = clinical_events.where(
     clinical_events.date.is_on_or_between(INTERVAL.start_date - weeks(12), INTERVAL.start_date + weeks(4))
     ).sort_by(clinical_events.date).first_for_patient().snomedct_code
 
+
+
+
 # combine criteria to create a pregnancy status for the current month:
 dataset.pregnant = case(
     # recent delivery -> not pregnant now:
@@ -90,8 +112,10 @@ dataset.pregnant = case(
          & (dataset.pregnancy_end_recent.is_null() # no past delivery captured
             | ~dataset.pregnancy_end_recent.is_on_or_between(dataset.pregnancy_edd-weeks(28),dataset.pregnancy_edd+weeks(3))
             )).then("P-EDD"),
-    # end of pregnancy in month or next 2 months - currently pregnant:
-    when(dataset.pregnancy_end.is_on_or_before(INTERVAL.start_date + weeks(12))).then("P-E"),
+    # early loss in month or next 16 weeks - currently pregnant:
+    when(dataset.early_pregnancy_end.is_not_null()).then("P-EL"),
+    # full term end of pregnancy in month or next 30 weeks - currently pregnant:
+    when(dataset.pregnancy_end.is_on_or_before(INTERVAL.start_date + weeks(30))).then("P-E"),
     # recent pregnancy code
     when(dataset.pregnancy_code.is_not_null()).then("P"),
     otherwise="0",

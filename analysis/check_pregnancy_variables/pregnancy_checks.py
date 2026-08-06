@@ -5,13 +5,13 @@ import matplotlib.pyplot as plt
 measures_dir = "output/measures"
 
 # Source of pregnant/not pregnant status:
-df = pd.read_csv(f"{measures_dir}/pregnant_source.csv")
-
+df = pd.read_csv(f"{measures_dir}/pregnant_source_all_ages.csv")
+df = df.loc[df["sex"]=="female"] # drop males here, we asses rates in males and by age separately
 # Extract year from interval_start
 df['year'] = pd.to_datetime(df['interval_start']).dt.year
 
 # Pivot the data to have sources as columns and years as index
-pivot_df = df.pivot(index='year', columns='source', values='ratio')
+pivot_df = df.pivot(index='year',columns='source', values='ratio')
 pivot_df.to_csv(f"{measures_dir}/flag_source_summary_by_year.csv")
 
 # Plot a single bar chart showing the percentage for each source per year

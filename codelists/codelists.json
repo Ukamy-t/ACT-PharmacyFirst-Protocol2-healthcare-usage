@@ -167,6 +167,30 @@
       "url": "https://www.opencodelists.org/codelist/pharmacy-first-project/cellulitis-using-snomed-ct-codes/521b1c16/",
       "downloaded_at": "2026-07-06 12:49:12.659426Z",
       "sha": "70f9abf5bb25dca13dcbd0ba30416713fbac3f67"
+    },
+    "user-paolomazzone-openpregnosis-miscarriage-codes_v1.csv": {
+      "id": "user/paolomazzone/openpregnosis-miscarriage-codes_v1/383197f1",
+      "url": "https://www.opencodelists.org/codelist/user/paolomazzone/openpregnosis-miscarriage-codes_v1/383197f1/",
+      "downloaded_at": "2026-08-05 16:07:12.057051Z",
+      "sha": "4607551e164997c05d48f4e49aa13111d0460879"
+    },
+    "user-paolomazzone-openpregnosis-molar-codes_v1.csv": {
+      "id": "user/paolomazzone/openpregnosis-molar-codes_v1/035ff191",
+      "url": "https://www.opencodelists.org/codelist/user/paolomazzone/openpregnosis-molar-codes_v1/035ff191/",
+      "downloaded_at": "2026-08-05 16:07:12.125543Z",
+      "sha": "837bd375f2ffa1ffa7fa7547410576fe207aeb61"
+    },
+    "user-paolomazzone-openpregnosis-blighted-ovum-codes_v1.csv": {
+      "id": "user/paolomazzone/openpregnosis-blighted-ovum-codes_v1/1c6f64c6",
+      "url": "https://www.opencodelists.org/codelist/user/paolomazzone/openpregnosis-blighted-ovum-codes_v1/1c6f64c6/",
+      "downloaded_at": "2026-08-05 16:07:12.189894Z",
+      "sha": "d4b13e79186ef3cf959bb0b99384ada016199875"
+    },
+    "user-paolomazzone-openpregnosis-ectopic-codes_v1.csv": {
+      "id": "user/paolomazzone/openpregnosis-ectopic-codes_v1/6a507e5b",
+      "url": "https://www.opencodelists.org/codelist/user/paolomazzone/openpregnosis-ectopic-codes_v1/6a507e5b/",
+      "downloaded_at": "2026-08-05 16:07:12.284658Z",
+      "sha": "461cf2527664cac3195540c35729ae6bf77f61e5"
     }
   }
 }

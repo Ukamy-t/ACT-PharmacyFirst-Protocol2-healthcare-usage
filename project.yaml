@@ -22,6 +22,13 @@ actions:
       highly_sensitive:
         dataset: output/dataset_preg_2025_11_01.csv.gz
 
+  generate_dataset_preg_measures: 
+    run: ehrql:v1 generate-measures analysis/check_pregnancy_variables/dataset_definition_pregnancy_measures.py --output output/measures/:csv
+    outputs:
+      moderately_sensitive:
+        dataset: output/measures/ck_*.csv
+        dataset2: output/measures/pregnant_source_all_ages.csv
+
   generate_dataset_preg_measures_u16: 
     run: ehrql:v1 generate-measures analysis/check_pregnancy_variables/dataset_definition_pregnancy_measures.py --output output/measures/:csv -- --age_band "<16"
     outputs:
@@ -40,14 +47,14 @@ actions:
       moderately_sensitive:
         dataset: output/measures/*_o65.csv
 
-#analyse_preg_measures:
-#   run: python:v2 analysis/check_pregnancy_variables/pregnancy_checks.py --output output/measures/pregnancy_checks.csv --input output/measures/*.csv
-#   needs: 
-#     [generate_dataset_preg_measures]
-#   outputs:
-#     moderately_sensitive:
-#       dataset: output/measures/*by_year.csv
-#       charts: output/measures/*by_year.png
+  analyse_preg_measures:
+    run: python:v2 analysis/check_pregnancy_variables/pregnancy_checks.py --output output/measures/pregnancy_checks.csv --input output/measures/*.csv
+    needs: 
+      [generate_dataset_preg_measures]
+    outputs:
+      moderately_sensitive:
+        dataset: output/measures/*by_year.csv
+        charts: output/measures/*by_year.png
 
   analyse_preg_measures_agesex:
     run: python:v2 analysis/check_pregnancy_variables/pregnancy_checks_age_sex.py --output output/measures/:csv --input output/measures/*.csv

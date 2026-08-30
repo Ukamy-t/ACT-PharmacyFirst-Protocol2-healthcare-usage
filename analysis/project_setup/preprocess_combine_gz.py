@@ -9,7 +9,59 @@ Combine monthly patient-level datasets into one CSV.GZ file.
 
 The monthly datasets are read in chunks and written directly to the
 combined output file, avoiding loading all months into memory.
+
+Column names are shortened for compatibility with Stata.
 """
+
+def shorten_column_name(name):
+    specific_names = {
+        "patient_id": "pt_id",
+        "pf_consultation_general": "pf_cons_general",
+        "pf_consultation_general_butno_condition":
+            "pf_cons_general_butno_condition",
+        "include_patient_overall_eligible": "inc_pt_all_eligible",
+    }
+
+    if name in specific_names:
+        return specific_names[name]
+
+    replacements = [
+        ("numerator_", "num_"),
+        ("consultation", "cons"),
+        ("patient", "pt"),
+        ("include_", "inc_"),
+        ("overall", "all"),
+        ("econsultation", "econs"),
+        ("lowerbackpain", "lbp"),
+        ("insectbite", "ibite"),
+    ]
+
+    new_name = name
+
+    for old, new in replacements:
+        new_name = new_name.replace(old, new)
+
+    return new_name
+
+def shorten_column_names(df):
+    rename_dict = {
+        column: shorten_column_name(column)
+        for column in df.columns
+    }
+
+    df = df.rename(columns=rename_dict)
+
+    duplicate_columns = (
+        df.columns[df.columns.duplicated()].tolist()
+    )
+
+    if duplicate_columns:
+        raise ValueError(
+            "Duplicate column names after shortening: "
+            f"{duplicate_columns}"
+        )
+
+    return df
 
 def combine_monthly_datasets(output_file, chunksize=100_000):
     start_dates = config.month_range(config.start, config.end)
@@ -78,6 +130,8 @@ def combine_monthly_datasets(output_file, chunksize=100_000):
                 chunksize=chunksize,
                 # low_memory=False,
             ):
+                chunk = shorten_column_names(chunk)
+                
                 chunk.to_csv(
                     output_handle,
                     index=False,
@@ -140,34 +194,3 @@ if __name__ == "__main__":
         output_file=args.output,
         chunksize=args.chunksize,
     )
-
-# import pandas as pd
-# from pathlib import Path
-# import config
-# import argparse
-
-# # utilisation: python analysis/project_setup/preprocess_combine_gz.py
-
-# start_dates = config.month_range(config.start, config.end)
-# # start_dates = ["2024-02-01", "2024-03-01"]
-
-# dfs = []
-
-# for d in start_dates:
-#     file = Path(f"output/dataset_patients_{d}.csv.gz")
-
-#     if file.exists():
-#         df = pd.read_csv(file)
-#         dfs.append(df)
-
-# combined = pd.concat(dfs, ignore_index=True)
-
-# parser = argparse.ArgumentParser()
-# parser.add_argument(
-#     "--output",
-#     default="output/dataset_patients_combined.csv.gz",
-#     help="Output file path"
-# )
-
-# args = parser.parse_args()
-# combined.to_csv(args.output, index=False)

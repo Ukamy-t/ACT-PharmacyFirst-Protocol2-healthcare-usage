@@ -27,16 +27,25 @@ OUTPUT_FILE = "./output/pf_consultations_by_month.csv"
 MONTH_COLUMN = "start_date"
 CHUNKSIZE = 100_000
 
-CONSULTATION_COLUMNS = [
-    "numerator_pf_consultation_uti",
-    "numerator_pf_consultation_sinusitis",
-    "numerator_pf_consultation_insectbite",
-    "numerator_pf_consultation_otitismedia",
-    "numerator_pf_consultation_sorethroat",
-    "numerator_pf_consultation_shingles",
-    "numerator_pf_consultation_impetigo",
-]
+# CONSULTATION_COLUMNS = [
+#     "numerator_pf_consultation_uti",
+#     "numerator_pf_consultation_sinusitis",
+#     "numerator_pf_consultation_insectbite",
+#     "numerator_pf_consultation_otitismedia",
+#     "numerator_pf_consultation_sorethroat",
+#     "numerator_pf_consultation_shingles",
+#     "numerator_pf_consultation_impetigo",
+# ]
 
+CONSULTATION_COLUMNS = [
+    "num_pf_cons_uti",
+    "num_pf_cons_sinusitis",
+    "num_pf_cons_ibite",
+    "num_pf_cons_otitismedia",
+    "num_pf_cons_sorethroat",
+    "num_pf_cons_shingles",
+    "num_pf_cons_impetigo",
+]
 
 # =============================================================================
 # Check input file and report file size

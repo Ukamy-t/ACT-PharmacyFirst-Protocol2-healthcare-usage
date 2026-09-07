@@ -810,14 +810,9 @@ actions:
     outputs:
       highly_sensitive:
         dataset: output/dataset_patients_combined.csv.gz
-    
   
   decompress_combined_patient_dataset:
-  run: >
-    python:v2
-    python analysis/project_setup/decompress_gz.py
-    --input output/dataset_patients_combined.csv.gz
-    --output output/dataset_patients_combined.csv
+  run: python:v2 python analysis/project_setup/decompress_gz.py
   needs: [combine_monthly_patient_gz]
   outputs:
     highly_sensitive:

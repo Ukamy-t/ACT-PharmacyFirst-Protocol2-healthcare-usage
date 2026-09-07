@@ -829,11 +829,11 @@ actions:
         summary_table: output/pf_consultations_by_month.csv
 
   
-run_objective_1_analysis:
-    run: stata-mp:workspaces/ACT-PharmacyFirst-Protocol2-healthcare-usage/analysis/Objective_1_analysis.do
-    needs: [combine_monthly_patient_gz]
+  run_objective_1_analysis:
+    run: stata-mp:latest analysis/Objective_1_analysis_test.do --output output/PF_WP2_P2_obj1_totals.log
+    needs: [decompress_combined_patient_dataset]
     outputs:
       moderately_sensitive:
-        log1: "outputs/PF_WP2_P2_obj1_totals.log"
+        log1: "output/PF_WP2_P2_obj1_totals.log"
        
 
